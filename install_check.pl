@@ -1,5 +1,5 @@
 
-do 'foobar-lib.pl';
+do 'tklbam-lib.pl';
 
 =head2 is_installed(mode)
 

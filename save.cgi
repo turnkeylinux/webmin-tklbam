@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Create, update or delete a website
 
-require 'foobar-lib.pl';
+require 'tklbam-lib.pl';
 ReadParse();
 error_setup($text{'save_err'});
 lock_file($config{'foobar_conf'});

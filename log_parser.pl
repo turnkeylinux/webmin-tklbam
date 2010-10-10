@@ -1,7 +1,7 @@
 # log_parser.pl
 # Functions for parsing this module's logs
 
-do 'foobar-lib.pl';
+do 'tklbam-lib.pl';
 
 =head2 parse_webmin_log(user, script, action, type, object, &params)
 

@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # Show all Foobar webserver websites
 
-require 'foobar-lib.pl';
+require 'tklbam-lib.pl';
 
 ui_print_header(undef, $module_info{'desc'}, "", undef, 1, 1);
 

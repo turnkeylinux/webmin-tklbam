@@ -1,3 +1,4 @@
-desc=TKLBAM
+name=tklbam
+desc=TurnKey Linux Backup and Migration
 category=system
 version=0.1

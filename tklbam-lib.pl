@@ -7,6 +7,8 @@ use constant STATUS_OK => 0;
 use constant STATUS_NO_BACKUP => 10;
 use constant STATUS_NO_APIKEY => 11;
 
+use constant PATH_CRON_DAILY => "/etc/cron.daily/tklbam-backup";
+
 sub is_installed {
     return has_command("tklbam");
 }
@@ -32,6 +34,21 @@ sub tklbam_init {
     die $output if $? != 0;
 }
 
+sub exists_cron_daily {
+    return (-e PATH_CRON_DAILY);
+}
 
+sub get_cron_daily {
+    return (-x PATH_CRON_DAILY);
+}
+
+sub set_cron_daily {
+    my ($flag) = @_;
+    if ($flag) {
+        chmod 0755, PATH_CRON_DAILY;
+    } else {
+        chmod 0644, PATH_CRON_DAILY;
+    }
+}
 1;
 

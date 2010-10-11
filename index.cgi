@@ -1,18 +1,21 @@
 #!/usr/bin/perl
-# Show all Foobar webserver websites
-
 require 'tklbam-lib.pl';
 
 error($text{'index_not_installed'}) unless (is_installed());
 
 redirect("init.cgi") unless is_initialized();
+ReadParse();
+if(defined($in{'cron_daily'})) {
+    set_cron_daily($in{'cron_daily'});
+}
 
 ui_print_header(undef, $module_info{'desc'}, "", undef, 1, 1);
 
-if (is_initialized()) {
-    print "CONF SCREEN HERE";
-} else {
-    print 
-}
+print ui_form_start(undef);
+
+print ui_table_start("Configuration", undef, 2);
+print ui_table_row("Daily backups", ui_yesno_radio("cron_daily", get_cron_daily()));
+
+print ui_form_end([[undef, 'Apply']]);
 
 ui_print_footer('/', $text{'index'});

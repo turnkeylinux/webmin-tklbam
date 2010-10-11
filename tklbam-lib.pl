@@ -8,6 +8,7 @@ use constant STATUS_NO_BACKUP => 10;
 use constant STATUS_NO_APIKEY => 11;
 
 use constant PATH_CRON_DAILY => "/etc/cron.daily/tklbam-backup";
+use constant PATH_TKLBAM_OVERRIDES => "/etc/tklbam/overrides";
 
 sub is_installed {
     return has_command("tklbam");
@@ -71,6 +72,10 @@ sub set_cron_daily {
     } else {
         chmod 0644, PATH_CRON_DAILY;
     }
+}
+
+sub get_overrides_path {
+    return PATH_TKLBAM_OVERRIDES;
 }
 
 1;

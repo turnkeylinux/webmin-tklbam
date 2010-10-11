@@ -34,10 +34,6 @@ sub tklbam_init {
     die $output if $? != 0;
 }
 
-sub exists_cron_daily {
-    return (-e PATH_CRON_DAILY);
-}
-
 sub get_cron_daily {
     return (-x PATH_CRON_DAILY);
 }
@@ -45,10 +41,19 @@ sub get_cron_daily {
 sub set_cron_daily {
     my ($flag) = @_;
     if ($flag) {
+        unless (-e PATH_CRON_DAILY) {
+            open(FH, ">" . PATH_CRON_DAILY) 
+                or die "can't open file: " . PATH_CRON_DAILY;
+
+            print FH "#!/bin/sh\n";
+            print FH "tklbam-backup --quiet\n";
+            close FH;
+        }
         chmod 0755, PATH_CRON_DAILY;
     } else {
         chmod 0644, PATH_CRON_DAILY;
     }
 }
+
 1;
 

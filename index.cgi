@@ -15,7 +15,6 @@ print ui_form_start(undef);
 
 print ui_table_start("Configuration", undef, 2);
 print ui_table_row("Daily backups", ui_yesno_radio("cron_daily", get_cron_daily()));
-
 print ui_form_end([[undef, 'Apply']]);
 
 ui_print_footer('/', $text{'index'});

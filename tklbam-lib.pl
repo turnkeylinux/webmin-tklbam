@@ -28,7 +28,7 @@ sub fmt_status {
     if ($exitcode == STATUS_NO_APIKEY) {
         return "NOT INITIALIZED";
     } elsif ($exitcode == STATUS_NO_BACKUP) {
-        return "NO BACKUP";
+        return "No backups have yet been created.";
     } else {
         chomp $output;
         $output =~ s/.*?:\s+//;

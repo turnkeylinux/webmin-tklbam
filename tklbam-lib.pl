@@ -14,18 +14,36 @@ sub is_installed {
 }
 
 sub is_initialized {
-    my $status = backquote_command("tklbam-status");
-    my $exitcode = $?;
-    $exitcode = $exitcode >> 8 if $exitcode != 0;
-
-    die "couldn't execute tklbam-status: $!" unless defined $status;
+    my ($exitcode, undef) = tklbam_status();
     
-    if ($exitcode == 0 || $exitcode == STATUS_NO_BACKUP) {
+    if ($exitcode == STATUS_OK || $exitcode == STATUS_NO_BACKUP) {
         return 1;
     } elsif ($exitcode == STATUS_NO_APIKEY) {
         return 0;
     }
+}
 
+sub fmt_status {
+    my ($exitcode, $output) = tklbam_status();
+    if ($exitcode == STATUS_NO_APIKEY) {
+        return "NOT INITIALIZED";
+    } elsif ($exitcode == STATUS_NO_BACKUP) {
+        return "NO BACKUP";
+    } else {
+        chomp $output;
+        $output =~ s/.*?:\s+//;
+        return $output;
+    }
+}
+
+sub tklbam_status {
+    my $output = backquote_command("tklbam-status --short");
+    my $exitcode = $?;
+    $exitcode = $exitcode >> 8 if $exitcode != 0;
+
+    die "couldn't execute tklbam-status: $!" unless defined $output;
+
+    return ($exitcode, $output)
 }
 
 sub tklbam_init {

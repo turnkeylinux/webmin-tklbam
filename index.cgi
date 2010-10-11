@@ -4,7 +4,8 @@ require 'tklbam-lib.pl';
 error($text{'index_not_installed'}) unless (is_installed());
 redirect("init.cgi") unless is_initialized();
 
-ui_print_header(undef, $module_info{'desc'}, "", undef, 1, 1);
+#ui_print_header(undef, $module_info{'desc'}, "", undef, 1, 1);
+ui_print_header("<tt>".fmt_status()."</tt>", $module_info{'desc'}, "", undef, 1, 1);
 push(@links, "passphrase.cgi");
 push(@titles, "Set Passphrase");
 push(@icons, "images/passphrase.gif");
@@ -35,9 +36,5 @@ print ui_buttons_row('backup.cgi', 'Backup now', 'Run a backup of this
 system right now');
 
 print ui_buttons_end();
-
-print ui_hr();
-print "<b>Last backup:</b> " . fmt_status();
-
 
 ui_print_footer('/', $text{'index'});

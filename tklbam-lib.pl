@@ -8,11 +8,11 @@ use constant STATUS_NO_BACKUP => 10;
 use constant STATUS_NO_APIKEY => 11;
 
 sub is_installed {
-    return (`which tklbam` ne '');
+    return has_command("tklbam");
 }
 
 sub is_initialized {
-    my $status = `tklbam-status`;
+    my $status = backquote_command("tklbam-status");
     my $exitcode = $?;
     $exitcode = $exitcode >> 8 if $exitcode != 0;
 
@@ -25,6 +25,13 @@ sub is_initialized {
     }
 
 }
+
+sub tklbam_init {
+    my ($apikey) = @_;
+    $output = backquote_command("tklbam-init $apikey 2>&1");
+    die $output if $? != 0;
+}
+
 
 1;
 

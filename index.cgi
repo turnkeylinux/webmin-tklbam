@@ -3,14 +3,16 @@
 
 require 'tklbam-lib.pl';
 
-ui_print_header(undef, $module_info{'desc'}, "", undef, 1, 1);
+error($text{'index_not_installed'}) unless (is_installed());
 
-ui_print_endpage($text{'index_not_installed'}) unless (is_installed());
+redirect("init.cgi") unless is_initialized();
+
+ui_print_header(undef, $module_info{'desc'}, "", undef, 1, 1);
 
 if (is_initialized()) {
     print "CONF SCREEN HERE";
 } else {
-    print "ENTER API-KEY";
+    print 
 }
 
 ui_print_footer('/', $text{'index'});

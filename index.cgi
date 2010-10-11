@@ -11,15 +11,24 @@ if(defined($in{'cron_daily_submit'})) {
 
 ui_print_header(undef, $module_info{'desc'}, "", undef, 1, 1);
 
-print fmt_status();
+print ui_table_start(undef, "width=100%", 2);
+print "<tr><td>";
 
+print ui_table_start("Daily automatic backups", "width=100%", 2);
 print ui_form_start();
-
-print ui_table_start("Daily automatic backups", undef, 2);
 print ui_table_row(ui_checkbox("cron_daily", 1, "Enabled", get_cron_daily()), 
                    ui_submit("Save", "cron_daily_submit"));
+print ui_form_end();
 print ui_table_end();
 
-print ui_form_end();
+
+print "</td><td>";
+
+print ui_table_start("Backup status", "width=100%", 2);
+print ui_table_row(fmt_status());
+print ui_table_end();
+
+print "</td></tr>";
+print ui_table_end();
 
 ui_print_footer('/', $text{'index'});

@@ -8,6 +8,8 @@ use constant STATUS_NO_BACKUP => 10;
 use constant STATUS_NO_APIKEY => 11;
 
 use constant PATH_CRON_DAILY => "/etc/cron.daily/tklbam-backup";
+
+use constant PATH_TKLBAM_CONF => '/etc/tklbam/conf';
 use constant PATH_TKLBAM_OVERRIDES => "/etc/tklbam/overrides";
 
 sub is_installed {
@@ -98,6 +100,72 @@ sub get_backup_id {
     return unless ($exitcode == STATUS_OK);
 
     return ($output =~ /Backup ID #(.*?),/);
+}
+
+
+sub _conf_read {
+    open(FH, PATH_TKLBAM_CONF)
+        or die "open: $!";
+
+    return join("", <FH>);
+}
+
+sub _conf_write {
+    my ($conf) = @_;
+    open(FH, ">" . PATH_TKLBAM_CONF)
+        or die "open: $!";
+    print FH $conf;
+    close FH;
+}
+
+sub _conf_parse {
+    my ($conf) = @_;
+    my @lines = split(/\n/, $conf);
+    my %conf;
+    foreach my $line (@lines) {
+        $line =~ s/#.*//;
+        $line =~ s/^\s+//;
+        $line =~ s/\s+$//;
+        next if($line eq '');
+
+        my ($key, $val) = split(/\s+/, $line);
+        $key =~ s/-/_/g;
+        $conf{$key} = $val;
+    }
+    return \%conf;
+}
+
+sub _conf_update_option {
+    my ($conf, $key, $val) = @_;
+    $key =~ s/_/-/g;
+    unless($conf =~ s/^(\s*$key\s+).*/\1$val/gm) {
+        $conf .= "\n$key $val\n";
+    }
+    return $conf;
+}
+
+sub _conf_format {
+    my ($conf, $parsed) = @_;
+    foreach my $key (keys %$parsed) {
+        $conf = _conf_update_option($conf, $key, $parsed->{$key});
+    }
+    return $conf;
+}
+
+sub conf_get {
+    return _conf_parse(_conf_read());
+}
+
+sub conf_set {
+    my ($options) = @_;
+    my $orig;
+    eval {
+        $orig = _conf_read();
+    };
+    if($@) {
+        $orig = "";
+    }
+    _conf_write(_conf_format($orig, $options));
 }
 
 1;

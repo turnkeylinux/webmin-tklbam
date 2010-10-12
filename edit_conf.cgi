@@ -10,12 +10,14 @@ print ui_tabs_start(\@tabs, 'mode', 'conf');
 # configuration options
 print ui_tabs_start_tab('mode', 'conf');
 
+$conf = conf_get();
+
 print ui_form_start("save_conf.cgi", "post");
 print ui_table_start("Configuration Options", undef, 2);
 
-print ui_table_row(hlink("Size of backup volumes", "volsize"), ui_textbox("volsize", "50", 3) . " MBs", 1);
+print ui_table_row(hlink("Size of backup volumes", "volsize"), ui_textbox("volsize", $conf->{'volsize'}, 3) . " MBs", 1);
 
-print ui_table_row(hlink("Frequency of full backup", "full-backup"), ui_textbox("full_backup", "1M", 3), 1);
+print ui_table_row(hlink("Frequency of full backup", "full-backup"), ui_textbox("full_backup", $conf->{'full_backup'}, 3), 1);
 
 print ui_table_end();
 print ui_form_end([[undef, 'Save Options']]);

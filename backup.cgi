@@ -26,6 +26,7 @@ while($line = <$fh>) {
     print $line;
 }
 close($fh);
+waitpid($pid, 0);
 
 print ui_form_start("index.cgi");
 print ui_submit("Back", "back");

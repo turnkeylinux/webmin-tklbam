@@ -24,17 +24,18 @@ push(@icons, "images/help.gif");
 &icons_table(\@links, \@titles, \@icons, 4);
 
 print ui_buttons_start();
-print ui_buttons_row('save_cron.cgi', 'Enable daily backup:', 
+print ui_buttons_row('save_cron.cgi', 'Enable daily backup: ', 
                      'Automatic incremental daily backups',
                      undef,
                      &ui_radio("enabled", get_cron_daily() ? "1" : "0",
                         [ [ 1, $text{'yes'} ],
                           [ 0, $text{'no'} ] ]));
 
-print ui_buttons_row('backup.cgi', 'Backup Now', 
-                     'Run a backup of this system right now',
+
+print ui_buttons_row('backup.cgi', 'Run Backup', 
+                     'Backup this system to cloud storage',
                      undef,
-                     ui_submit("Simulation Run", "simulate"));
+                     ui_submit('Run a Local Simulation', "simulate"));
 
 print ui_buttons_end();
 

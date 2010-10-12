@@ -14,20 +14,21 @@ if (defined($in{'simulate'})) {
 $command = "tklbam-backup";
 $command .= " --simulate" if $simulate;
 
-clean_environment();
-open(CMD, "$command 2>&1 < /dev/null |")
-    or die "error: $!";
+foreign_require("proc", "proc-lib.pl");
+local ($fh, $pid) = &foreign_call("proc", "pty_process_exec", $command);
 
 print "<b>&gt; $command</b><br />";
 
 $| = 1;
 
-while($line = <CMD>) {
+while($line = <$fh>) {
     $line = html_escape($line) . "<br />";
     print $line;
 }
+close($fh);
 
-close(CMD);
-reset_environment();
+print ui_form_start("index.cgi");
+print ui_submit("Back", "back");
+print ui_form_end();
 
 ui_print_footer('/', $text{'index'});

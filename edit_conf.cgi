@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 require 'tklbam-lib.pl';
 
-ui_print_header(undef, "Advanced Configuration", "", undef, 1, 1);
+ui_print_header(undef, "Advanced Configuration", "", undef, 0, 0);
 
 # configuration options
 print ui_form_start("save_conf.cgi", "post");

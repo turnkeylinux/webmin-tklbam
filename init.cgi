@@ -17,7 +17,7 @@ if($in{'apikey'}) {
     }
 }
 
-ui_print_header(undef, "$module_info{'desc'}", "", undef, 1, 1);
+ui_print_header(undef, "$module_info{'desc'}", "", undef, 0, 1);
 
 print ui_form_start(undef);
 print ui_table_start("Init", undef, 2);

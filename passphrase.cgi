@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 require 'tklbam-lib.pl';
 
-ui_print_header(undef, "Set Passphrase", "", undef, 1, 1);
+ui_print_header(undef, "Set Passphrase", "", undef, 0, 0);
 
 print ui_form_start(undef, "post");
 print ui_table_start("Change Backup Passphrase", undef, 2);

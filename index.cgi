@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 require 'tklbam-lib.pl';
+ReadParse();
 
 error($text{'index_not_installed'}) unless (is_installed());
 redirect("init.cgi") unless is_initialized();
@@ -52,7 +53,19 @@ print ui_buttons_end();
 print ui_tabs_end_tab('mode', 'backup');
 print ui_tabs_start_tab('mode', 'restore');
 
-print "RESTORE";
+print ui_subheading("Rollback Last Restore");
+
+print "<table><tr>";
+print ui_form_start('restore_rollback.cgi', 'post');
+print "<td>";
+print "System snapshot from Tue Oct 12 11:04:11 2010";
+print ui_submit("Rollback");
+print "</td>";
+print ui_form_end();
+print "</tr></table>";
+
+print ui_subheading("List Backups");
+
 print ui_tabs_end_tab('mode', 'restore');
 
 ui_print_footer('/', $text{'index'});

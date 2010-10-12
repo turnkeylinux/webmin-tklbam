@@ -78,5 +78,13 @@ sub get_overrides_path {
     return PATH_TKLBAM_OVERRIDES;
 }
 
+sub set_passphrase {
+    my ($passphrase) = @_;
+    my $output;
+    my $error;
+    my $retval = execute_command("tklbam-passphrase", \$passphrase, \$output, \$error);
+    die "tklbam-passphrase error: $error" if $retval != 0;
+}
+
 1;
 

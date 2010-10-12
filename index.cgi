@@ -31,8 +31,10 @@ print ui_buttons_row('save_cron.cgi', 'Enable daily backup:',
                         [ [ 1, $text{'yes'} ],
                           [ 0, $text{'no'} ] ]));
 
-print ui_buttons_row('backup.cgi', 'Backup now', 'Run a backup of this
-system right now');
+print ui_buttons_row('backup.cgi', 'Backup Now', 
+                     'Run a backup of this system right now',
+                     undef,
+                     ui_submit("Simulation Run", "simulate"));
 
 print ui_buttons_end();
 

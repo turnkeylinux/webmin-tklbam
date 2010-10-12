@@ -12,6 +12,14 @@ use constant PATH_CRON_DAILY => "/etc/cron.daily/tklbam-backup";
 use constant PATH_TKLBAM_CONF => '/etc/tklbam/conf';
 use constant PATH_TKLBAM_OVERRIDES => "/etc/tklbam/overrides";
 
+sub write_file_contents {
+    my ($path, $buf) = @_;
+    open(FH, ">" . $path)
+        or die "open: $!";
+    print FH $buf;
+    close FH;
+}
+
 sub is_installed {
     return has_command("tklbam");
 }
@@ -104,18 +112,12 @@ sub get_backup_id {
 
 
 sub _conf_read {
-    open(FH, PATH_TKLBAM_CONF)
-        or die "open: $!";
-
-    return join("", <FH>);
+    return read_file_contents(PATH_TKLBAM_CONF);
 }
 
 sub _conf_write {
-    my ($conf) = @_;
-    open(FH, ">" . PATH_TKLBAM_CONF)
-        or die "open: $!";
-    print FH $conf;
-    close FH;
+    my ($buf) = @_;
+    return write_file_contents(PATH_TKLBAM_CONF, $buf);
 }
 
 sub _conf_parse {

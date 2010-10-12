@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 require 'tklbam-lib.pl';
+ReadParse();
 
 ui_print_header(undef, "Advanced Configuration", "", undef, 0, 0);
 
 @tabs = ( [ 'conf', 'Options' ],
           [ 'overrides', 'Overrides' ] );
-print ui_tabs_start(\@tabs, 'mode', 'conf');
+print ui_tabs_start(\@tabs, 'mode', $in{'mode'} || 'conf');
 
 # configuration options
 print ui_tabs_start_tab('mode', 'conf');

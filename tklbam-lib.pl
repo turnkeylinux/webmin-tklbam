@@ -11,6 +11,7 @@ use constant PATH_CRON_DAILY => "/etc/cron.daily/tklbam-backup";
 
 use constant PATH_TKLBAM_CONF => '/etc/tklbam/conf';
 use constant PATH_TKLBAM_OVERRIDES => "/etc/tklbam/overrides";
+use constant PATH_TKLBAM_PROFILE => "/var/lib/tklbam/profile/dirindex.conf";
 
 sub write_file_contents {
     my ($path, $buf) = @_;
@@ -107,7 +108,9 @@ sub get_backup_id {
     my ($exitcode, $output) = tklbam_status();
     return unless ($exitcode == STATUS_OK);
 
-    return ($output =~ /Backup ID #(.*?),/);
+    if($output =~ /Backup ID #(.*?),/) {
+        return $1;
+    }
 }
 
 
@@ -168,6 +171,14 @@ sub conf_set {
         $orig = "";
     }
     _conf_write(_conf_format($orig, $options));
+}
+
+sub profile_exists {
+    return (-e PATH_TKLBAM_PROFILE);
+}
+
+sub profile_path {
+    return PATH_TKLBAM_PROFILE;
 }
 
 1;

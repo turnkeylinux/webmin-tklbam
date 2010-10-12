@@ -36,7 +36,9 @@ print ui_table_start("Backup Overrides ($overrides_path)");
 
 print "<tr><td>";
 
-print "Overrides the defaults in the <b><a href='view_profile.cgi'>backup profile</a></b><br />";
+if(profile_exists()) {
+    print "Overrides the defaults in the <b><a href='view_profile.cgi'>backup profile</a></b><br />";
+}
 print ui_textarea("data", $data, 20, 80),"\n";
 print "</td></tr>";
 

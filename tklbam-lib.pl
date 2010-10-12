@@ -86,5 +86,19 @@ sub set_passphrase {
     die "tklbam-passphrase error: $error" if $retval != 0;
 }
 
+sub get_escrow {
+    my ($path) = @_;
+    my $error;
+    $retval = execute_command("tklbam-escrow --no-passphrase $path", undef, undef, \$error);
+    die "tklbam-escrow error: $error" if $retval != 0;
+}
+
+sub get_backup_id {
+    my ($exitcode, $output) = tklbam_status();
+    return unless ($exitcode == STATUS_OK);
+
+    return ($output =~ /Backup ID #(.*?),/);
+}
+
 1;
 

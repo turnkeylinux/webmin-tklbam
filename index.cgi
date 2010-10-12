@@ -27,7 +27,7 @@ print ui_buttons_start();
 print ui_buttons_row('save_cron.cgi', 'Enable daily backup:', 
                      'Automatic incremental daily backups',
                      undef,
-                     &ui_radio("enabled", 1,
+                     &ui_radio("enabled", get_cron_daily() ? "1" : "0",
                         [ [ 1, $text{'yes'} ],
                           [ 0, $text{'no'} ] ]));
 

@@ -29,13 +29,17 @@ print ui_tabs_end_tab('mode', 'conf');
 print ui_tabs_start_tab('mode', 'overrides');
 
 $overrides_path = get_overrides_path();
+$data = read_file_contents($overrides_path);
+
 print ui_form_start("save_overrides.cgi", "post");
 print ui_table_start("Backup Overrides ($overrides_path)");
 
-$data = read_file_contents($overrides_path);
+print "<tr><td>";
 
-print "Overrides the <b><a>default profile</a></b><br />";
+print "Overrides the defaults in the <b><a href='view_profile.cgi'>backup profile</a></b><br />";
 print ui_textarea("data", $data, 20, 80),"\n";
+print "</td></tr>";
+
 print ui_table_end();
 print ui_form_end([[undef, 'Save Overrides']]);
 

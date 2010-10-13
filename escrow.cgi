@@ -22,7 +22,7 @@ if ($ENV{'PATH_INFO'}) {
     $backup_id = get_backup_id();
 
     $filename="$hostname";
-    $filename .= "-#$backup_id" if $backup_id;
+    $filename = "$backup_id-$filename" if $backup_id;
     $filename .= ".secret";
 
     redirect('escrow.cgi/' . urlize($filename))

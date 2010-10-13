@@ -24,7 +24,11 @@ unless($in{'confirmed'}) {
     exit;
 
 }
-ui_print_header(undef, $module_info{'desc'}, "", undef, 0, 1);
 
-    print "<pre>" . Dumper(\%in) . "</pre>";
+$timestamp = rollback_timestamp();
+$command = "tklbam-restore-rollback --force";
+ui_print_unbuffered_header(undef, "Executing Rollback", "", undef, 0, 0);
+htmlified_system($command);
+print "Rolled back to snapshot from $timestamp<br />";
+print ui_form_start('index.cgi'), ui_hidden('mode', 'restore'), ui_submit('Back'), ui_form_end();
 ui_print_footer('/', $text{'index'});

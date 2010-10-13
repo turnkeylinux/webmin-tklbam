@@ -66,6 +66,28 @@ print "</tr></table>";
 
 print ui_subheading("List Backups");
 
+print ui_form_start('restore.cgi');
+print "<div style='text-align: right; padding-right: 5px'><a>Refresh</a></div>";
+print ui_columns_start(
+["ID", "Passphrase", "Created", "Updated", "Size (MB)", "Label",
+"Actions"], 100, undef,
+[undef, undef, undef, undef, undef, undef, 'align="center"']);
+
+print ui_columns_row(
+["1", "No", "2010-10-07", "2010-10-12", "90.25", "TurnKey Drupal6",
+ui_submit("Restore", "restore_1") . ui_submit("Advanced", "advanced_1")],
+[undef, undef, undef, undef, undef, undef, 'align="center"']);
+
+print ui_columns_row(
+["2", "Yes", "2010-10-07", "2010-10-12", "32.00", "TurnKey Joomla",
+ui_submit("Restore", "restore_2") . ui_submit("Advanced", "advanced_2")],
+[undef, undef, undef, undef, undef, undef, 'align="center"']);
+
+print ui_columns_end();
+
+print ui_form_end();
+
 print ui_tabs_end_tab('mode', 'restore');
 
 ui_print_footer('/', $text{'index'});
+

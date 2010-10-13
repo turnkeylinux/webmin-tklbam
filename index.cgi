@@ -70,7 +70,7 @@ print ui_subheading("Backup List");
 
 $colalign = [undef, undef, undef, undef, undef, undef, 'align="center"'];
 
-print ui_form_start('restore.cgi');
+print ui_form_start('restore.cgi', 'post');
 print "<div style='text-align: right; padding-right: 5px'><a>Refresh</a></div>";
 
 @hbrs = tklbam_list();

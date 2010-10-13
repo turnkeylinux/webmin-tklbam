@@ -211,6 +211,8 @@ sub htmlified_system {
 }
 
 sub tklbam_list {
+    my ($id) = @_;
+
     my $output = backquote_command("tklbam-list 2>&1");
     die $output if $? != 0;
 
@@ -223,7 +225,12 @@ sub tklbam_list {
         my @hbr = split(/\s+/, $line, 6);
         push @hbrs, \@hbr;
     }
-    return @hbrs;
+
+    return @hbrs unless defined $id;
+    foreach my $hbr (@hbrs) {
+        next if $hbr->[0] ne $id;
+        return $hbr;
+    }
 }
 
 1;

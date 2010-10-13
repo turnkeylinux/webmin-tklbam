@@ -3,7 +3,7 @@ require 'tklbam-lib.pl';
 
 ReadParse();
 
-ui_print_header(undef, $module_info{'desc'}, "", undef, 0, 1);
+ui_print_header(undef, $module_info{'desc'}, "", undef, 0, 0);
 
 print ui_form_start(undef, "post");
 print ui_table_start('Configure Restore -- Backup #1, TurnKey Joomla 90MB', 

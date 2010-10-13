@@ -13,6 +13,8 @@ use constant PATH_TKLBAM_CONF => '/etc/tklbam/conf';
 use constant PATH_TKLBAM_OVERRIDES => "/etc/tklbam/overrides";
 use constant PATH_TKLBAM_PROFILE => "/var/lib/tklbam/profile/dirindex.conf";
 
+use constant PATH_TKLBAM_ROLLBACK => '/var/backups/tklbam-rollback';
+
 sub write_file_contents {
     my ($path, $buf) = @_;
     open(FH, ">" . $path)
@@ -179,6 +181,15 @@ sub profile_exists {
 
 sub profile_path {
     return PATH_TKLBAM_PROFILE;
+}
+
+sub rollback_exists {
+    return 1 if -d PATH_TKLBAM_ROLLBACK;
+}
+
+sub rollback_timestamp {
+    my @st = stat(PATH_TKLBAM_ROLLBACK);
+    return localtime($st[10]);
 }
 
 1;

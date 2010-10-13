@@ -53,16 +53,18 @@ print ui_buttons_end();
 print ui_tabs_end_tab('mode', 'backup');
 print ui_tabs_start_tab('mode', 'restore');
 
-print ui_subheading("Rollback Last Restore");
+if(rollback_exists()) {
+    print ui_subheading("Rollback Last Restore");
 
-print "<table><tr>";
-print ui_form_start('restore_rollback.cgi', 'post');
-print "<td>";
-print "System snapshot from Tue Oct 12 11:04:11 2010";
-print ui_submit("Rollback");
-print "</td>";
-print ui_form_end();
-print "</tr></table>";
+    print "<table><tr>";
+    print ui_form_start('restore_rollback.cgi', 'post');
+    print "<td>";
+    print "System snapshot from " . rollback_timestamp();
+    print ui_submit("Rollback");
+    print "</td>";
+    print ui_form_end();
+    print "</tr></table>";
+}
 
 print ui_subheading("List Backups");
 

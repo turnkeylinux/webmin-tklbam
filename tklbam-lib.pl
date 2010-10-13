@@ -189,7 +189,7 @@ sub rollback_exists {
 
 sub rollback_timestamp {
     my @st = stat(PATH_TKLBAM_ROLLBACK);
-    return localtime($st[10]);
+    return scalar(localtime($st[10]));
 }
 
 1;

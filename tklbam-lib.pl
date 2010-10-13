@@ -62,7 +62,7 @@ sub tklbam_status {
 
 sub tklbam_init {
     my ($apikey) = @_;
-    $output = backquote_command("tklbam-init $apikey 2>&1");
+    my $output = backquote_command("tklbam-init $apikey 2>&1");
     die $output if $? != 0;
 }
 
@@ -208,6 +208,22 @@ sub htmlified_system {
     }
     close($fh);
     waitpid($pid, 0);
+}
+
+sub tklbam_list {
+    my $output = backquote_command("tklbam-list 2>&1");
+    die $output if $? != 0;
+
+    $output =~ s/^#.*?\n//;
+    my @hbrs;
+    foreach my $line (split(/\n/, $output)) {
+        $line =~ s/^\s+//;
+        $line =~ s/\s+$//;
+        
+        my @hbr = split(/\s+/, $line, 6);
+        push @hbrs, \@hbr;
+    }
+    return @hbrs;
 }
 
 1;

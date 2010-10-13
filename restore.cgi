@@ -9,6 +9,8 @@ die unless @vals;
 
 my ($op, $id) = split(/_/, $vals[0], 2);
 
+validate_cli_args($id);
+
 if($op eq 'advanced') {
     ui_print_header(undef, "Advanced Restore", "", undef, 0, 1);
 

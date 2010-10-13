@@ -7,6 +7,8 @@ redirect('') if is_initialized();
 
 my $init_error = undef;
 
+validate_cli_args($in{'apikey'});
+
 if($in{'apikey'}) {
     eval {
         tklbam_init($in{'apikey'});

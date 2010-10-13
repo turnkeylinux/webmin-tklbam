@@ -233,5 +233,13 @@ sub tklbam_list {
     }
 }
 
+sub validate_cli_args {
+    foreach my $arg (@_) {
+        error_setup("Input validation");
+        error(sprintf("Invalid input %s", html_escape($arg))) 
+            unless $arg =~ /^[:\/\s\w\d\-\.]*$/;
+    }
+}
+
 1;
 

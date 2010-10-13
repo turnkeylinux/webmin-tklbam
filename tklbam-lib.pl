@@ -192,5 +192,23 @@ sub rollback_timestamp {
     return scalar(localtime($st[10]));
 }
 
+sub htmlified_system {
+    my ($command) = @_;
+
+    print "<b>&gt; $command</b><br />";
+
+    foreign_require("proc", "proc-lib.pl");
+    local ($fh, $pid) = &foreign_call("proc", "pty_process_exec", $command);
+
+    $| = 1;
+
+    while($line = <$fh>) {
+        $line = html_escape($line) . "<br />";
+        print $line;
+    }
+    close($fh);
+    waitpid($pid, 0);
+}
+
 1;
 

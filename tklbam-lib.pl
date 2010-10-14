@@ -196,6 +196,7 @@ sub htmlified_system {
     my ($command, $input) = @_;
 
     print "<b>&gt; $command</b><br />";
+    return 0;
 
     foreign_require("proc", "proc-lib.pl");
     local ($fh, $pid) = &foreign_call("proc", "pty_process_exec", $command);

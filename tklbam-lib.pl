@@ -1,6 +1,8 @@
 BEGIN { push(@INC, ".."); };
 
 use WebminCore;
+use POSIX qw(:termios_h);
+
 init_config();
 
 use constant STATUS_OK => 0;
@@ -192,14 +194,27 @@ sub rollback_timestamp {
     return scalar(localtime($st[10]));
 }
 
+sub term_set_noecho {
+    my ($fh) = @_;
+
+    my $term = POSIX::Termios->new();
+    $term->getattr(fileno($fh));
+    my $oterm = $term->getlflag();
+    my $echo = ECHO | ECHOK | ICANON;
+    my $noecho = $oterm & ~$echo;
+    $term->setlflag($noecho);
+    $term->setattr(fileno($fh), TCSANOW);
+}
+
 sub htmlified_system {
     my ($command, $input) = @_;
 
     print "<b>&gt; $command</b><br />";
-    return 0;
 
     foreign_require("proc", "proc-lib.pl");
     local ($fh, $pid) = &foreign_call("proc", "pty_process_exec", $command);
+
+    term_set_noecho($fh);
 
     print $fh $input 
         if $input;
@@ -212,6 +227,8 @@ sub htmlified_system {
     }
     close($fh);
     waitpid($pid, 0);
+
+    return $? >> 8;
 }
 
 sub tklbam_list {

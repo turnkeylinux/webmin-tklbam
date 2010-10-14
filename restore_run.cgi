@@ -32,19 +32,18 @@ my $passphrase = $in{'passphrase'};
 
 validate_cli_args($id, $in{'time'}, $in{'limits'});
 
-if(defined($passphrase) and !$passphrase) {
-    print "Error: passphrase can't be empty<br />";
-}
-
 if($skpp eq 'yes' and !$passphrase) {
     ui_print_header(undef, "Passphrase Required", "", undef, 0, 1);
+    if(defined($passphrase)) {
+        print "Error: passphrase can't be empty<br />";
+    }
     print_passphrase_form(\%in);
 }
 
 if($skpp eq 'no' or $passphrase) {
     ui_print_unbuffered_header(undef, "Restoring Backup #$id ...", "", undef, 0, 0);
 
-    my $command = "tklbam-restore $id";
+    my $command = "tklbam-restore $id --noninteractive";
     my $keyfile;
 
     if($in{'upload_escrow'}) {
@@ -63,14 +62,13 @@ if($skpp eq 'no' or $passphrase) {
     $command .= " --skip-packages" if $in{'skip_packages'};
     $command .= " --skip-database" if $in{'skip_database'};
 
-    my $error = htmlified_system($command, $passphrase);
+    my $error = htmlified_system($command, "$passphrase\n");
 
     # execute command
     unlink($keyfile) if $keyfile;
 
     if($error) {
         # show passphrase dialog
-        print "Incorrect passphrase, try again<br />";
         print_passphrase_form(\%in);
         
     } else {

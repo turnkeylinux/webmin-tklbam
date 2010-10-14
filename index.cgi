@@ -71,7 +71,8 @@ print ui_subheading("Backup List");
 $colalign = [undef, undef, undef, undef, undef, undef, 'align="center"'];
 
 print ui_form_start('restore.cgi', 'post');
-print "<div style='text-align: right; padding-right: 5px'><a>Refresh</a></div>";
+print "<div style='text-align: right; padding-right: 5px'><a
+href='index.cgi?mode=restore'>Refresh</a></div>";
 
 @hbrs = tklbam_list();
 
@@ -84,10 +85,13 @@ unless(@hbrs) {
 
     foreach $hbr (@hbrs) {
         my $id = $hbr->[0];
+        my $skpp = lc $hbr->[1];
         print ui_columns_row([@$hbr, 
-                                ui_submit('Restore', "restore_$id" ) . 
-                                ui_submit('Advanced', "advanced_$id")],
-                              $colalign);
+                                ui_submit('Restore',
+                                          join(':', 'restore', $id, $skpp)) .
+                                ui_submit('Advanced',
+                                          join(':', 'advanced', $id, $skpp))
+                                          ], $colalign);
     }
 
     print ui_columns_end();

@@ -193,12 +193,15 @@ sub rollback_timestamp {
 }
 
 sub htmlified_system {
-    my ($command) = @_;
+    my ($command, $input) = @_;
 
     print "<b>&gt; $command</b><br />";
 
     foreign_require("proc", "proc-lib.pl");
     local ($fh, $pid) = &foreign_call("proc", "pty_process_exec", $command);
+
+    print $fh $input 
+        if $input;
 
     $| = 1;
 
@@ -235,7 +238,6 @@ sub tklbam_list {
 
 sub validate_cli_args {
     foreach my $arg (@_) {
-        error_setup("Input validation");
         error(sprintf("Invalid input %s", html_escape($arg))) 
             unless $arg =~ /^[:\/\s\w\d\-\.]*$/;
     }

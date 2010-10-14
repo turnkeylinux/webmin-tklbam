@@ -29,10 +29,11 @@ ReadParseMime() unless $in{'id'};
 my $id = $in{'id'};
 my $skpp = $in{'skpp'};
 my $passphrase = $in{'passphrase'};
+my $key = $in{'upload_escrow'};
 
 validate_cli_args($id, $in{'time'}, $in{'limits'});
 
-if($skpp eq 'yes' and !$passphrase) {
+if($skpp eq 'yes' and !$passphrase and !$key) {
     ui_print_header(undef, "Passphrase Required", "", undef, 0, 1);
     if(defined($passphrase)) {
         print "Error: passphrase can't be empty<br />";
@@ -40,7 +41,7 @@ if($skpp eq 'yes' and !$passphrase) {
     print_passphrase_form(\%in);
 }
 
-if($skpp eq 'no' or $passphrase) {
+if($skpp eq 'no' or ($passphrase or $key)) {
     ui_print_unbuffered_header(undef, "Restoring Backup #$id ...", "", undef, 0, 0);
 
     my $command = "tklbam-restore $id --noninteractive";
@@ -67,7 +68,7 @@ if($skpp eq 'no' or $passphrase) {
     # execute command
     unlink($keyfile) if $keyfile;
 
-    if($error) {
+    if($error == 11) { # 11 is code for BADPASSPHRASE
         # show passphrase dialog
         print_passphrase_form(\%in);
         

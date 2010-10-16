@@ -17,6 +17,8 @@ use constant PATH_TKLBAM_PROFILE => "/var/lib/tklbam/profile/dirindex.conf";
 
 use constant PATH_TKLBAM_ROLLBACK => '/var/backups/tklbam-rollback';
 
+use constant DEFAULT_CACHE_LIST_TTL => 300;
+
 sub write_file_contents {
     my ($path, $buf) = @_;
     open(FH, ">" . $path)
@@ -231,10 +233,48 @@ sub htmlified_system {
     return $? >> 8;
 }
 
+sub _cache_path {
+    my ($name) = @_;
+
+    my $dir = $user_module_config_directory || $module_config_directory;
+    make_dir($dir, 0755);
+    return "$dir/cache.$name";
+}
+
+sub cache_get {
+    my ($name, $ttl) = @_;
+    my $path = _cache_path($name);
+    my @st = stat($path);
+
+    return if !@st or ((time() - $st[9]) > $ttl);
+
+    return read_file_contents($path);
+}
+
+sub cache_set {
+    my ($name, $data) = @_;
+    my $path = _cache_path($name);
+
+    write_file_contents($path, $data);
+}
+
+sub cache_expire {
+    my ($name) = @_;
+    my $path = _cache_path($name);
+    unlink $path if -e $path;
+}
+
 sub tklbam_list {
     my ($id) = @_;
 
-    my $output = backquote_command("tklbam-list 2>&1");
+    my $cache_list_ttl = $config{'cache_list_ttl'} || DEFAULT_CACHE_LIST_TTL;
+
+    my $output = cache_get('list', $cache_list_ttl);
+    if(!$output) {
+        $output = backquote_command('tklbam-list 2>&1');
+        cache_set('list', $output);
+    }
+
     die $output if $? != 0;
 
     $output =~ s/^#.*?\n//;

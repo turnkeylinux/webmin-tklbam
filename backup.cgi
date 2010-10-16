@@ -15,5 +15,8 @@ ui_print_unbuffered_header(undef,
                            ($simulate ? "Running Backup Simulation..." : "Running Backup..."), 
                            "", undef, 0, 0);
 htmlified_system($command);
+
+cache_expire('list') if !$simulate;
+
 print ui_form_start("index.cgi"), ui_submit("Back"), ui_form_end();
 ui_print_footer('/', $text{'index'});

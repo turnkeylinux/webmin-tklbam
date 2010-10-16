@@ -21,7 +21,14 @@ sub print_passphrase_form {
     print hidden_data($in, "passphrase");
 
     my $id = $in->{'id'};
-    print ui_table_start("Passphrase Required to Restore Backup #$id");
+    my $escrowkey = $in{'upload_escrow_filename'};
+    $escrowkey =~ s|.*/||;
+
+    my $title = ($escrowkey ? 
+                 "Passphrase Required for '$escrowkey'" :
+                 "Passphrase Required to Restore Backup #$id");
+
+    print ui_table_start($title);
     print ui_table_row("Passphrase:", 
                        ui_password("passphrase", undef, 20));
     print ui_table_row(undef, ui_submit("Continue"));

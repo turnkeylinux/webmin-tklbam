@@ -12,6 +12,7 @@ validate_cli_args($in{'apikey'});
 if($in{'apikey'}) {
     eval {
         tklbam_init($in{'apikey'});
+        webmin_log('init');
         redirect('');
     };
     if ($@) {

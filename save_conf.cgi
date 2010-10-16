@@ -17,3 +17,5 @@ conf_set({'volsize' => $in{'volsize'},
          'full_backup' => $in{'full_backup'}});
 
 redirect('edit_conf.cgi');
+
+webmin_log('save', 'conf', undef, \%in);

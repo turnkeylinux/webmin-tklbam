@@ -32,3 +32,5 @@ htmlified_system($command);
 print "Rolled back to snapshot from $timestamp<br />";
 print ui_form_start('index.cgi'), ui_hidden('mode', 'restore'), ui_submit('Back'), ui_form_end();
 ui_print_footer('/', $text{'index'});
+
+webmin_log('restore_rollback');

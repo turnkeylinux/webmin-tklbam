@@ -13,6 +13,7 @@ if(defined($in{'passphrase'})) {
         if($in{'passphrase'} or $in{'confirm'}) {
             eval {
                 set_passphrase($in{'passphrase'});
+                webmin_log('passphrase');
             };
             if($@) {
                 my $exception = $@;

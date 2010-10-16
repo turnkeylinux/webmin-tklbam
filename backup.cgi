@@ -20,3 +20,6 @@ cache_expire('list') if !$simulate;
 
 print ui_form_start("index.cgi"), ui_submit("Back"), ui_form_end();
 ui_print_footer('/', $text{'index'});
+
+webmin_log('backup', undef, $command, \%in);
+

@@ -17,6 +17,8 @@ if ($ENV{'PATH_INFO'}) {
     }
     close(FILE);
     unlink($temp);
+
+    webmin_log('escrow');
 } else {
     $hostname = get_system_hostname();
     $backup_id = get_backup_id();

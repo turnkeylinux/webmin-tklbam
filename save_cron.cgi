@@ -4,3 +4,5 @@ require 'tklbam-lib.pl';
 ReadParse();
 set_cron_daily($in{'enabled'});
 redirect('');
+
+webmin_log('save', 'cron', undef, \%in);

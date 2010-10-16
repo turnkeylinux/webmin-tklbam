@@ -112,6 +112,9 @@ if($skpp eq 'no' or ($passphrase or $key)) {
 
         print ui_form_start('index.cgi'), ui_hidden('mode', 'restore'), ui_submit('Back'), ui_form_end();
         unlink($keyfile) if $keyfile;
+
+        delete $in{'passphrase'};
+        webmin_log('restore', undef, $command, \%in);
     }
 }
 

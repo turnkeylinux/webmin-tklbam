@@ -272,10 +272,10 @@ sub tklbam_list {
     my $output = cache_get('list', $cache_list_ttl);
     if(!$output) {
         $output = backquote_command('tklbam-list 2>&1');
+        die $output if $? != 0;
+
         cache_set('list', $output);
     }
-
-    die $output if $? != 0;
 
     $output =~ s/^#.*?\n//;
     my @hbrs;

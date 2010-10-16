@@ -1,5 +1,4 @@
 #!/usr/bin/perl
-use Data::Dumper;
 require 'tklbam-lib.pl';
 
 ReadParse();

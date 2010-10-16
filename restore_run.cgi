@@ -54,10 +54,6 @@ ReadParseMime() unless $in{'id'};
 
 redirect('?mode=restore') if $in{'cancel'};
 
-#ui_print_header();
-#use Data::Dumper;
-#print "<pre>" . Dumper(\%in) ."</pre>";
-
 my $id = $in{'id'};
 my $skpp = $in{'skpp'};
 my $passphrase = $in{'passphrase'};

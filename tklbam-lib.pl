@@ -262,5 +262,23 @@ sub validate_cli_args {
     }
 }
 
+sub _ui_confirmation_form
+{
+    my ($cgi, $method, $message, $hiddens, $buttons, $others, $warning) = @_;
+    my $rv;
+    $rv .= "<center class=ui_confirmation>\n";
+    $rv .= &ui_form_start($cgi, $method);
+    foreach my $h (@$hiddens) {
+        $rv .= &ui_hidden(@$h);
+        }
+    $rv .= "<b>$message</b><p>\n";
+    if ($others) {
+        $rv .= $others."<p>\n";
+        }
+    $rv .= &ui_form_end($buttons);
+    $rv .= "</center>\n";
+    return $rv;
+}
+
 1;
 

@@ -1,17 +1,24 @@
 #!/usr/bin/perl
-use Data::Dumper;
 require 'tklbam-lib.pl';
+
+sub hidden_data {
+    my ($in, @skip) = @_;
+    my $buf;
+    foreach my $var qw(skpp id force passphrase
+                       time upload_escrow upload_escrow_filename
+                       skip_packages skip_files skip_database limits) {
+        next if grep { $_ eq $var } @skip;
+        $buf .= ui_hidden($var, $in->{$var}) if defined $in->{$var};
+    }
+    return $buf;
+}
 
 sub print_passphrase_form {
     my ($in) = @_;
 
     print ui_form_start('restore_run.cgi', 'form-data');
 
-    foreach my $var qw(skpp id 
-                       time upload_escrow upload_escrow_filename
-                       skip_packages skip_files skip_database limits) {
-        print ui_hidden($var, $in->{$var}) if defined $in->{$var};
-    }
+    print hidden_data($in, "passphrase");
 
     my $id = $in->{'id'};
     print ui_table_start("Passphrase Required to Restore Backup #$id");
@@ -23,8 +30,26 @@ sub print_passphrase_form {
     print ui_form_end();
 }
 
+sub print_incompatible_force {
+    my ($in) = @_;
+
+    print _ui_confirmation_form('restore_run.cgi', 'form-data',
+    "Are you sure you want to restore an incompatible backup?",
+        undef,
+        [ [ 'force', 'Confirm' ],
+          [ 'cancel',  'Cancel' ] ], hidden_data($in),
+        );
+
+}
+
 ReadParse(undef, "GET");
 ReadParseMime() unless $in{'id'};
+
+redirect('?mode=restore') if $in{'cancel'};
+
+#ui_print_header();
+#use Data::Dumper;
+#print "<pre>" . Dumper(\%in) ."</pre>";
 
 my $id = $in{'id'};
 my $skpp = $in{'skpp'};
@@ -63,6 +88,8 @@ if($skpp eq 'no' or ($passphrase or $key)) {
     $command .= " --skip-packages" if $in{'skip_packages'};
     $command .= " --skip-database" if $in{'skip_database'};
 
+    $command .= " --force" if $in{'force'};
+
     my $error = htmlified_system($command, "$passphrase\n");
 
     # execute command
@@ -72,6 +99,8 @@ if($skpp eq 'no' or ($passphrase or $key)) {
         # show passphrase dialog
         print_passphrase_form(\%in);
         
+    } elsif($error == 10) { # 10 is code for INCOMPATIBLE
+        print_incompatible_force(\%in);
     } else {
 
         print ui_form_start('index.cgi'), ui_hidden('mode', 'restore'), ui_submit('Back'), ui_form_end();

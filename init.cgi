@@ -20,18 +20,25 @@ if($in{'apikey'}) {
     }
 }
 
-ui_print_header(undef, "$module_info{'desc'}", "", undef, 0, 1);
+ui_print_header(undef, text('init_title'), "", undef, 0, 1);
 
-print ui_form_start(undef);
-print ui_table_start("Init", undef, 2);
-print ui_table_row("API-KEY", ui_textbox("apikey", $in{'apikey'}, 20));
-print ui_table_end();
+print ui_subheading(text('init_apikey_title'));
 
-print ui_form_end([[undef, 'Save']]);
+print "<p>" . text('init_apikey_desc'). "</p>";
 
-if ($init_error) {
-    print ui_subheading("Error");
-    print "<pre>$init_error</pre>";
+print ui_form_start(undef, 'post');
+
+print "<b>".text('init_apikey').": </b>", ui_textbox("apikey", $in{'apikey'}, 20);
+print ui_submit(text('init_button'));
+
+print ui_form_end();
+
+if($init_error) {
+    $init_error =~ s/^(\w)/uc $1/e;
+    print "<b><pre>$init_error</pre></b>";
+} else {
+    print '<br />';
+    print text("init_about_tklbam");
 }
 
 ui_print_footer('/', $text{'index'});

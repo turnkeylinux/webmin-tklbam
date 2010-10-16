@@ -13,3 +13,12 @@ log_save_cron_disabled=Disabled daily backup cron job
 log_restore=Restored backup id #$1
 log_backup_real=Backup
 log_backup_simulate=Backup simulation
+
+init_title=Initialization (Before we get started...)
+init_apikey_title=Link to your TurnKey Hub account
+init_apikey_desc=Enter the API Key from your <a href='https://hub.turnkeylinux.org/'>TurnKey Hub</a> account's <a href='https://hub.turnkeylinux.org/profile/'>user profile</a> to link TKLBAM to the Hub: 
+
+init_apikey=API KEY
+init_button=Continue
+
+init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM (TurnKey Linux Backup and Migration) is a smart backup/restore system that just works. No configuration required. It tracks changes to files, databases, and package management state. Restoring is fully automated so you can test backups easily, and migrate working servers anywhere in minutes.</p><p><br />Learn more: <b><a href="http://www.turnkeylinux.org/tklbam">http://www.turnkeylinux.org/tklbam</a></b></p>

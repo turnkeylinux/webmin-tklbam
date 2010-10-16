@@ -5,7 +5,7 @@ sub hidden_data {
     my ($in, @skip) = @_;
     my $buf;
     foreach my $var qw(skpp id force passphrase
-                       time upload_escrow upload_escrow_filename
+                       time escrow escrow_filename
                        skip_packages skip_files skip_database limits) {
         next if grep { $_ eq $var } @skip;
         $buf .= ui_hidden($var, $in->{$var}) if defined $in->{$var};
@@ -21,11 +21,11 @@ sub print_passphrase_form {
     print hidden_data($in, "passphrase");
 
     my $id = $in->{'id'};
-    my $escrowkey = $in{'upload_escrow_filename'};
-    $escrowkey =~ s|.*/||;
+    my $escrow = $in{'escrow_filename'};
+    $escrow =~ s|.*/||;
 
-    my $title = ($escrowkey ? 
-                 "Passphrase Required for '$escrowkey'" :
+    my $title = ($escrow ? 
+                 "Passphrase Required for '$escrow'" :
                  "Passphrase Required to Restore Backup #$id");
 
     print ui_table_start($title);
@@ -61,7 +61,7 @@ redirect('?mode=restore') if $in{'cancel'};
 my $id = $in{'id'};
 my $skpp = $in{'skpp'};
 my $passphrase = $in{'passphrase'};
-my $key = $in{'upload_escrow'};
+my $key = $in{'escrow'};
 
 validate_cli_args($id, $in{'time'}, $in{'limits'});
 
@@ -79,10 +79,10 @@ if($skpp eq 'no' or ($passphrase or $key)) {
     my $command = "tklbam-restore $id --noninteractive";
     my $keyfile;
 
-    if($in{'upload_escrow'}) {
+    if($in{'escrow'}) {
         umask(077);
-        $keyfile = transname($in{'upload_escrow_filename'});
-        write_file_contents($keyfile, $in{'upload_escrow'});
+        $keyfile = transname($in{'escrow_filename'});
+        write_file_contents($keyfile, $in{'escrow'});
         $command .= " --keyfile=$keyfile";
     }
 

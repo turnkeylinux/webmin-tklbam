@@ -24,7 +24,7 @@ if($op eq 'advanced') {
     print ui_table_row('Time ago:', 
                        ui_textbox('time', '', 40), undef, ["align=right"]);
     print ui_table_row(hlink('Escrow key:', 'escrow'),
-    ui_upload('upload_escrow', 30), undef, ['align=right']);
+    ui_upload('escrow', 30), undef, ['align=right']);
 
     print ui_table_row('Skip:', 
                        ui_checkbox('skip_packages', 1, 'New packages') . '<br />' .

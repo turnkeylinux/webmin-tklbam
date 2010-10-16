@@ -114,7 +114,7 @@ if($skpp eq 'no' or ($passphrase or $key)) {
         unlink($keyfile) if $keyfile;
 
         delete $in{'passphrase'};
-        webmin_log('restore', undef, $command, \%in);
+        webmin_log('restore', $command, $in{'id'}, \%in);
     }
 }
 

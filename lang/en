@@ -1,5 +1,15 @@
 index_not_installed=tklbam package not installed
 
-log_create=Created website $1
-log_modify=Modified website $1
-log_delete=Deleted website $1
+log_init=Initialized TKLBAM
+log_escrow=Downloaded escrow key
+log_passphrase=Set passphrase
+log_restore_rollback=Rolled back restore
+
+log_save_overrides=Saved profile overrides
+log_save_conf=Saved configuration options
+log_save_cron_enabled=Enabled daily backup cron job
+log_save_cron_disabled=Disabled daily backup cron job
+
+log_restore=Restored backup id #$1
+log_backup_real=Backup
+log_backup_simulate=Backup simulation

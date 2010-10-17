@@ -84,8 +84,8 @@ conf_title=Advanced Configuration
 conf_options=Options
 conf_overrides=Overrides
 conf_options_title=Configuration Options
-conf_options_volsize=Size of backup volumes
-conf_options_full_backup=Frequency of full backup
+conf_options_volsize=Size of backup volumes (?)
+conf_options_full_backup=Frequency of full backup (?)
 conf_options_save=Save Options
 
 conf_overrides_title=Backup Overrides ($1)

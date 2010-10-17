@@ -104,3 +104,6 @@ restore_incompatible_confirm=Confirm
 restore_incompatible_cancel=Cancel
 
 restore_restoring=Restoring Backup #$1 ...
+
+profile_title=View Backup Profile
+profile_subtitle=Filesystem backup profile ($1)

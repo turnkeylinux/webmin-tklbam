@@ -8,7 +8,7 @@ redirect('') if $in{'cancel'};
 
 if(defined($in{'passphrase'})) {
     if($in{'passphrase'} ne $in{'passphrase_confirm'}) {
-        $error = "Error: Passphrase not confirmed correctly";
+        $error = text('passphrase_errorconfirm');
     } else {
         if($in{'passphrase'} or $in{'confirm'}) {
             eval {
@@ -18,16 +18,16 @@ if(defined($in{'passphrase'})) {
             };
             if($@) {
                 my $exception = $@;
-                ui_print_header(undef, "Error", "", undef, 0, 0);
+                ui_print_header(undef, text('passphrase_error'), "", undef, 0, 0);
                 die $exception;
             }
             redirect('');
         } else {
-            ui_print_header(undef, "Confirm Passphrase Removal", "", undef, 0, 0);
-            print ui_confirmation_form('', "Do you really want to remove the passphrase?", 
+            ui_print_header(undef, text('passphrase_confirm_title'), "", undef, 0, 0);
+            print ui_confirmation_form('', text('passphrase_confirm_desc'), 
                 [ [ "passphrase", "" ] ],
-                [ [ "confirm", "Remove Passphrase" ],
-                  [ "cancel",  "Cancel" ] ], undef
+                [ [ "confirm", text('passphrase_confirm_remove') ],
+                  [ "cancel",  text('passphrase_confirm_cancel') ] ], undef
                 
                 );
 
@@ -37,17 +37,17 @@ if(defined($in{'passphrase'})) {
     }
 }
 
-ui_print_header($error, "Set Passphrase", "", undef, 0, 0);
+ui_print_header($error, text('passphrase_title'), "", undef, 0, 0);
 
 print ui_form_start(undef, "post");
-print ui_table_start(hlink("Change Backup Passphrase (?)", 'passphrase'), undef, 2);
-print ui_table_row("New passphrase:", 
+print ui_table_start(hlink(text('passphrase_subtitle'), 'passphrase'), undef, 2);
+print ui_table_row(text('passphrase_new'), 
                    ui_password("passphrase", undef, 20));
-print ui_table_row("New passphrase (again):",
+print ui_table_row(text('passphrase_new_again'),
                    ui_password("passphrase_confirm", undef, 20));
-print ui_table_row(undef, "(Leave empty to remove passphrase)", 2);
+print ui_table_row(undef, text('passphrase_emptydesc'), 2);
 print ui_table_end();
-print ui_form_end([[undef, 'Change']]);
+print ui_form_end([[undef, text('passphrase_change')]]);
 
 ui_print_footer('/', $text{'index'});
 

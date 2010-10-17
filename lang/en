@@ -8,7 +8,7 @@ init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM (TurnKey Linux Backup and Migra
 index_not_installed=tklbam package not installed
 index_backup=Backup
 index_restore=Restore
-index_setpass=Set Passphrase
+index_setpass=Passphrase
 index_download_escrow=Download Escrow Key
 index_advanced_conf=Advanced Configuration
 index_online_docs=Online Documentation
@@ -66,7 +66,7 @@ restore_skip_files=Filesystem changes
 restore_skip_database=Database
 restore_run=Restore
 
-passphrase_title=Set Passphrase
+passphrase_title=Passphrase
 passphrase_subtitle=Secret Key Passphrase Protection (?)
 passphrase_new=New passphrase:
 passphrase_new_again=New passphrase (again):

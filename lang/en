@@ -72,12 +72,12 @@ passphrase_new=New passphrase:
 passphrase_new_again=New passphrase (again):
 passphrase_emptydesc=(Leave empty to remove passphrase)
 passphrase_change=Change
+passphrase_cancel=Cancel
 
 passphrase_errorconfirm=Error: Passphrase not confirmed correctly
 passphrase_error=Error
 passphrase_confirm_title=Confirm Passphrase Removal
 passphrase_confirm_desc=Do you really want to remove the passphrase?
 passphrase_confirm_remove=Remove Passphrase
-passphrase_confirm_cancel=Cancel
 
 

@@ -27,7 +27,7 @@ if(defined($in{'passphrase'})) {
             print ui_confirmation_form('', text('passphrase_confirm_desc'), 
                 [ [ "passphrase", "" ] ],
                 [ [ "confirm", text('passphrase_confirm_remove') ],
-                  [ "cancel",  text('passphrase_confirm_cancel') ] ], undef
+                  [ "cancel",  text('passphrase_cancel') ] ], undef
                 
                 );
 
@@ -47,7 +47,8 @@ print ui_table_row(text('passphrase_new_again'),
                    ui_password("passphrase_confirm", undef, 20));
 print ui_table_row(undef, text('passphrase_emptydesc'), 2);
 print ui_table_end();
-print ui_form_end([[undef, text('passphrase_change')]]);
+print ui_form_end([['change', text('passphrase_change')],
+                   ['cancel', text('passphrase_cancel')]]);
 
 ui_print_footer('/', $text{'index'});
 

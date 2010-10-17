@@ -99,6 +99,8 @@ sub set_passphrase {
     my ($passphrase) = @_;
     my $output;
     my $error;
+
+    $passphrase = "$passphrase\n";
     my $retval = execute_command("tklbam-passphrase", \$passphrase, \$output, \$error);
     die "tklbam-passphrase error: $error" if $retval != 0;
 }

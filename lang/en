@@ -55,17 +55,6 @@ log_restore=Restored backup id #$1
 log_backup_real=Backup
 log_backup_simulate=Backup simulation
 
-restore_title=Advanced Restore Options
-restore_title_options=Configure Restore -- Backup #$1, $2 $3 MB
-restore_timeago=Time ago (?):
-restore_escrow=Escrow key (?):
-restore_limits=Limits (?):
-restore_skip=Skip (?):
-restore_skip_packages=New packages
-restore_skip_files=Filesystem changes
-restore_skip_database=Database
-restore_run=Restore
-
 passphrase_title=Passphrase
 passphrase_subtitle=Secret Key Passphrase Protection (?)
 passphrase_new=New passphrase:
@@ -90,5 +79,17 @@ conf_options_save=Save Options
 
 conf_overrides_title=Backup Overrides ($1)
 conf_overrides_profile=Overrides the defaults in the <b><a href='$1'>backup profile</a></b>
-
 conf_overrides_save=Save Overrides
+
+restore_title=Advanced Restore Options
+restore_title_options=Configure Restore -- Backup #$1, $2 $3 MB
+restore_timeago=Time ago (?):
+restore_escrow=Escrow key (?):
+restore_limits=Limits (?):
+restore_skip=Skip (?):
+restore_skip_packages=New packages
+restore_skip_files=Filesystem changes
+restore_skip_database=Database
+restore_run=Restore
+
+

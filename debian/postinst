@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+cd /usr/share/webmin
+./install-module.pl module-archives/tklbam.wbm.gz

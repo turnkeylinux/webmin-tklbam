@@ -57,11 +57,11 @@ log_backup_simulate=Backup simulation
 
 restore_title=Advanced Restore Options
 restore_title_options=Configure Restore -- Backup #$1, $2 $3 MB
-restore_timeago=Time ago:
-restore_escrow=Escrow key:
-restore_skip=Skip:
-restore_limits=Limits:
+restore_timeago=Time ago (?):
+restore_escrow=Escrow key (?):
+restore_limits=Limits (?):
+restore_skip=Skip (?):
 restore_skip_packages=New packages
 restore_skip_files=Filesystem changes
-restore_skip_database=Databasec
+restore_skip_database=Database
 restore_run=Restore

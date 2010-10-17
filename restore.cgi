@@ -20,19 +20,19 @@ if($op eq 'advanced') {
     print ui_hidden('id', $id), ui_hidden('skpp', lc($skpp));
     print ui_table_start(text('restore_title_options', $id, $label, $size), 'width=100%', 4);
 
-    print ui_table_row(text('restore_timeago'),
-                       ui_textbox('time', '', 40), undef, ["align=right"]);
+    print ui_table_row(hlink(text('restore_timeago'), 'timeago'),
+                       ui_textbox('time', '', 30), undef, ["align=right"]);
     print ui_table_row(hlink(text('restore_escrow'), 'escrow'),
-    ui_upload('escrow', 30), undef, ['align=right']);
+    ui_upload('escrow', 25), undef, ['align=right']);
 
-    print ui_table_row(text('restore_skip'), 
+    print ui_table_row(hlink(text('restore_skip'), 'skip'), 
                        ui_checkbox('skip_packages', 1, text('restore_skip_packages')) . '<br />' .
                        ui_checkbox('skip_files', 1, text('restore_skip_files')) . '<br />' .
                        ui_checkbox('skip_database', 1, text('restore_skip_database')), 
                        undef, ["align=right"]);
 
-    print ui_table_row(text('restore_limits'),
-                       ui_textarea('limits', "", 3, 30), undef, ["align=right"]);
+    print ui_table_row(hlink(text('restore_limits'), 'limits'),
+                       ui_textarea('limits', "", 3, 25), undef, ["align=right"]);
 
     print ui_table_end();
 

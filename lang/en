@@ -15,7 +15,7 @@ index_online_docs=Online Documentation
 index_enable_daily=Enable Daily Backups: 
 index_enable_daily_desc=Automatic incremental daily backups. Implemented via cron job (/etc/cron.daily/tklbam-backup).
 index_runbackup=Run Backup
-index_runbackup_desc=Backup this system to encrypted cloud storage on Amazon S3. You can run a local simulation to calculate in advance how much uncompressed data will be stored in a full backup.
+index_runbackup_desc=Backup this system to encrypted cloud storage on Amazon S3.<br /><br />You can <em>Run a Local Simulation</em> to calculate in advance how much uncompressed data will be stored in a full backup, but in practice, compression and efficient incremental updates reduce the actual storage used.
 index_runbackup_simulate=Run a Local Simulation
 
 index_rollback=Rollback

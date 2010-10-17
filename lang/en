@@ -1,4 +1,15 @@
 index_not_installed=tklbam package not installed
+index_backup=Backup
+index_restore=Restore
+index_setpass=Set Passphrase
+index_download_escrow=Download Escrow Key
+index_advanced_conf=Advanced Configuration
+index_online_docs=Online Documentation
+index_enable_daily=Enable Daily Backups: 
+index_enable_daily_desc=Automatic incremental daily backups. Implemented via cron job (/etc/cron.daily/tklbam-backup).
+index_runbackup=Run Backup
+index_runbackup_desc=Backup this system to encrypted cloud storage on Amazon S3. You can run a local simulation to calculate in advance how much uncompressed data will be stored in a full backup.
+index_runbackup_simulate=Run a Local Simulation
 
 log_init=Initialized TKLBAM
 log_escrow=Downloaded escrow key

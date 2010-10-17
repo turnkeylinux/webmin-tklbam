@@ -8,8 +8,8 @@ redirect("init.cgi") unless is_initialized();
 #ui_print_header("<tt>".fmt_status()."</tt>", $module_info{'desc'}, "", undef, 0, 1);
 ui_print_header(undef, $module_info{'desc'}, "", undef, 0, 1);
 
-@tabs = ( [ 'backup', 'Backup' ],
-          [ 'restore', 'Restore' ] );
+@tabs = ( [ 'backup', text('index_backup') ],
+          [ 'restore', text('index_restore') ] );
 print ui_tabs_start(\@tabs, 'mode', $in{'mode'} || 'backup');
 
 print ui_tabs_start_tab('mode', 'backup');
@@ -17,36 +17,36 @@ print ui_tabs_start_tab('mode', 'backup');
 printf '<h4>%s</h4>', fmt_status();
 
 push(@links, "passphrase.cgi");
-push(@titles, "Set Passphrase");
+push(@titles, text('index_setpass'));
 push(@icons, "images/passphrase.gif");
 
 push(@links, "escrow.cgi");
-push(@titles, "Download Escrow Key");
+push(@titles, text('index_download_escrow'));
 push(@icons, "images/escrow.gif");
 
 push(@links, "edit_conf.cgi");
-push(@titles, "Advanced Configuration");
+push(@titles, text('index_advanced_conf'));
 push(@icons, "images/conf.gif");
 
 push(@links, "http://www.turnkeylinux.org/tklbam");
-push(@titles, "Online Documentation");
+push(@titles, text('index_online_docs'));
 push(@icons, "images/help.gif");
 
 &icons_table(\@links, \@titles, \@icons, 4);
 
 print ui_buttons_start();
-print ui_buttons_row('save_cron.cgi', 'Enable daily backup: ', 
-                     'Automatic incremental daily backups',
+print ui_buttons_row('save_cron.cgi', text('index_enable_daily'), 
+                     text('index_enable_daily_desc'),
                      undef,
                      &ui_radio("enabled", get_cron_daily() ? "1" : "0",
                         [ [ 1, $text{'yes'} ],
                           [ 0, $text{'no'} ] ]));
 
 
-print ui_buttons_row('backup.cgi', 'Run Backup', 
-                     'Backup this system to cloud storage',
+print ui_buttons_row('backup.cgi', text('index_runbackup'), 
+                     text('index_runbackup_desc'),
                      undef,
-                     ui_submit('Run a Local Simulation', "simulate"));
+                     ui_submit(text('index_runbackup_simulate'), "simulate"));
 
 print ui_buttons_end();
 

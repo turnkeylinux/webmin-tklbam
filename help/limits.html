@@ -1,24 +1,29 @@
 <header>Filesystem or Database Restore Limitations</header>
 
 <p>Restore limitations can be used to control which files and databases
-get restored. The format is equivalent to backup overrides, but limitations only
-apply at restore time:</p>
+get restored. Remember, if you make a mistake you can rollback the last
+restore and try again with different limitations.</p>
 
-<blockquote>
-	LIMIT := -?(/path/to/include/or/exclude | mysql:database[/table])
-</blockquote>
+<p>By default all files and databases get restored. Negative limitations start
+with a minus sign and exclude files or directories from being restored. We use
+the same format to configure backup overrides, except that limitations only
+apply during restore time.</p>
 
-<p>Remember, if you make a mistake you can rollback the last
-restore and try again.</p>
+<h3>Syntax</h3>
 
-<h3>Examples</h3>
+<p>LIMIT := -?(/path/to/include/or/exclude | mysql:database[/table])</p>
+
+<p>Any number of limitations can be specified, on separate lines or separated
+by whitespace.</p>
+
+<h3>Example</h3>
 
 <pre>
-# Ignore system configuration changes
+# Exclude system configuration changes
 -/etc
 
 # Except changes to Webmin configuration
--/etc/webmin
+/etc/webmin
 
 # Exclude the Drupal cache table from being restored
 -mysql:drupal6/cache

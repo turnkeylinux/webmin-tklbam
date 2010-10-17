@@ -13,6 +13,7 @@ if(defined($in{'passphrase'})) {
         if($in{'passphrase'} or $in{'confirm'}) {
             eval {
                 set_passphrase($in{'passphrase'});
+                cache_expire('list');
                 webmin_log('passphrase');
             };
             if($@) {
@@ -50,4 +51,3 @@ print ui_form_end([[undef, 'Change']]);
 
 ui_print_footer('/', $text{'index'});
 
-# TODO: confirm passphrase removal

@@ -92,4 +92,15 @@ restore_skip_files=Filesystem changes
 restore_skip_database=Database
 restore_run=Restore
 
+restore_passphrase_title=Passphrase Required to Restore Backup #$1
+restore_passphrase_title_escrow=Passphrase Required for '$1'
+restore_passphrase=Passphrase:
+restore_passphrase_continue=Continue
+restore_passphrase_empty=Error: passphrase can't be empty
+restore_passphrase_required=Passphrase Required
 
+restore_incompatible=Are you sure you want to restore an incompatible backup?
+restore_incompatible_confirm=Confirm
+restore_incompatible_cancel=Cancel
+
+restore_restoring=Restoring Backup #$1 ...

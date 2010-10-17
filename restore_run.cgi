@@ -25,13 +25,13 @@ sub print_passphrase_form {
     $escrow =~ s|.*/||;
 
     my $title = ($escrow ? 
-                 "Passphrase Required for '$escrow'" :
-                 "Passphrase Required to Restore Backup #$id");
+                 text('restore_passphrase_title_escrow', $escrow) :
+                 text('restore_passphrase_title', $id));
 
     print ui_table_start($title);
-    print ui_table_row("Passphrase:", 
+    print ui_table_row(text('restore_passphrase'), 
                        ui_password("passphrase", undef, 20));
-    print ui_table_row(undef, ui_submit("Continue"));
+    print ui_table_row(undef, ui_submit(text('restore_passphrase_continue')));
     print ui_table_end();
 
     print ui_form_end();
@@ -41,11 +41,11 @@ sub print_incompatible_force {
     my ($in) = @_;
 
     print _ui_confirmation_form('restore_run.cgi', 'form-data',
-    "Are you sure you want to restore an incompatible backup?",
-        undef,
-        [ [ 'force', 'Confirm' ],
-          [ 'cancel',  'Cancel' ] ], hidden_data($in),
-        );
+                                text('restore_incompatible'),
+                                undef,
+                                [ [ 'force', text('restore_incompatible_confirm') ],
+                                  [ 'cancel', text('restore_incompatible_cancel') ] ], 
+                                hidden_data($in));
 
 }
 
@@ -62,15 +62,14 @@ my $key = $in{'escrow'};
 validate_cli_args($id, $in{'time'}, $in{'limits'});
 
 if($skpp eq 'yes' and !$passphrase and !$key) {
-    ui_print_header(undef, "Passphrase Required", "", undef, 0, 1);
-    if(defined($passphrase)) {
-        print "Error: passphrase can't be empty<br />";
-    }
+    my $error;
+    $error = text('restore_passphrase_empty') if defined $passphrase;
+    ui_print_header($error, text('restore_passphrase_required'), '', undef, 0, 0);
     print_passphrase_form(\%in);
 }
 
 if($skpp eq 'no' or ($passphrase or $key)) {
-    ui_print_unbuffered_header(undef, "Restoring Backup #$id ...", "", undef, 0, 0);
+    ui_print_unbuffered_header(undef, text('restore_restoring_title', $id), "", undef, 0, 0);
 
     my $command = "tklbam-restore $id --noninteractive";
     my $keyfile;

@@ -54,41 +54,42 @@ print ui_tabs_end_tab('mode', 'backup');
 print ui_tabs_start_tab('mode', 'restore');
 
 if(rollback_exists()) {
-    print ui_subheading("Rollback Last Restore");
+    print ui_subheading(text('index_rollback_title'));
 
     print "<table><tr>";
     print ui_form_start('restore_rollback.cgi', 'post');
     print "<td>";
-    print "System snapshot from " . rollback_timestamp();
-    print ui_submit("Rollback");
+    print text('index_rollback_timestamp', rollback_timestamp());
+    print ui_submit(text('index_rollback'));
     print "</td>";
     print ui_form_end();
     print "</tr></table>";
 }
 
-print ui_subheading("Backup List");
+print ui_subheading(text('index_list'));
 
 $colalign = [undef, undef, undef, undef, undef, undef, 'align="center"'];
 
 print ui_form_start('restore.cgi', 'post');
-print "<div style='text-align: right; padding-right: 5px'><a href='list_refresh.cgi'>Refresh</a></div>";
+printf "<div style='text-align: right; padding-right: 5px'><a href='list_refresh.cgi'>%s</a></div>", text('index_list_refresh');
 
 @hbrs = tklbam_list();
 
 unless(@hbrs) {
-    print "<b>No backups have yet been created</b>";
+    print '<b>'.text('index_list_nobackups').'</b>';
 } else {
-    print ui_columns_start(
-                ["ID", "Passphrase", "Created", "Updated", "Size (MB)", "Label",
-                "Actions"], 100, undef, $colalign);
+    print ui_columns_start( [text('index_list_id'), hlink(text('index_list_passphrase'), 'passphrase'), 
+                             text('index_list_created'), text('index_list_updated'), 
+                             text('index_list_size'), text('index_list_label'), 
+                             text('index_list_action') ], 100, undef, $colalign);
 
     foreach $hbr (@hbrs) {
         my $id = $hbr->[0];
         my $skpp = lc $hbr->[1];
         print ui_columns_row([@$hbr, 
-                                ui_submit('Restore',
+                                ui_submit(text('index_list_action_restore'),
                                           join(':', 'restore', $id, $skpp)) .
-                                ui_submit('Advanced',
+                                ui_submit(text('index_list_action_options'),
                                           join(':', 'advanced', $id, $skpp))
                                           ], $colalign);
     }

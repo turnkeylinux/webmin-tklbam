@@ -11,6 +11,23 @@ index_runbackup=Run Backup
 index_runbackup_desc=Backup this system to encrypted cloud storage on Amazon S3. You can run a local simulation to calculate in advance how much uncompressed data will be stored in a full backup.
 index_runbackup_simulate=Run a Local Simulation
 
+index_rollback=Rollback
+index_rollback_title=Rollback Last Restore
+index_rollback_timestamp=System snapshot from $1
+
+index_list=Backup List
+index_list_refresh=Refresh
+index_list_nobackups=No backups have yet been created
+index_list_id=ID
+index_list_passphrase=SKPP (?)
+index_list_created=Created
+index_list_updated=Updated
+index_list_size=Size (MB)
+index_list_label=Label
+index_list_action=Action
+index_list_action_restore=Restore
+index_list_action_options=Advanced Options
+
 log_init=Initialized TKLBAM
 log_escrow=Downloaded escrow key
 log_passphrase=Set passphrase

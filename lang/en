@@ -28,6 +28,12 @@ index_list_action=Action
 index_list_action_restore=Restore
 index_list_action_options=Advanced Options
 
+rollback_warning=DATA LOSS WARNING: This will rollback your system to the pre-restore snapshot from $1
+rollback_confirm=Confirm Rollback
+rollback_cancel=Cancel
+rollback_title=Runing Rollback...
+rollback_summary=Rolled back to snapshot from $1
+
 log_init=Initialized TKLBAM
 log_escrow=Downloaded escrow key
 log_passphrase=Set passphrase

@@ -9,13 +9,11 @@ unless($in{'confirmed'}) {
     
     ui_print_header(undef, "Confirm Rollback", "", undef, 0, 0);
 
-    print ui_confirmation_form('', 
-    'DATA LOSS WARNING: This will rollback your system to the pre-restore snapshot from ' .
-    rollback_timestamp(),
+    print ui_confirmation_form('', text('rollback_warning', rollback_timestamp()),
     
         undef,
-        [ [ 'confirmed', 'Confirm Rollback' ],
-          [ 'cancel',  'Cancel' ] ], undef
+        [ [ 'confirmed', text('rollback_confirm') ],
+          [ 'cancel',  text('rollback_cancel') ] ], undef
         
         );
 
@@ -26,9 +24,11 @@ unless($in{'confirmed'}) {
 
 $timestamp = rollback_timestamp();
 $command = "tklbam-restore-rollback --force";
-ui_print_unbuffered_header(undef, "Running Rollback...", "", undef, 0, 0);
-htmlified_system($command);
-print "Rolled back to snapshot from $timestamp<br />";
+ui_print_unbuffered_header(undef, text('rollback_title'), "", undef, 0, 0);
+$error = htmlified_system($command);
+if(!$error) {
+    print text('rollback_summary', $timestamp) . '<br />';
+}
 print ui_form_start('index.cgi'), ui_hidden('mode', 'restore'), ui_submit('Back'), ui_form_end();
 ui_print_footer('/', $text{'index'});
 

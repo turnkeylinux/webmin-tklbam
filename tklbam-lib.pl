@@ -211,6 +211,7 @@ sub term_set_noecho {
 sub htmlified_system {
     my ($command, $input) = @_;
 
+    print '<div style="font-family: andalemono, monospace">';
     print "<b>&gt; $command</b><br />";
 
     foreign_require("proc", "proc-lib.pl");
@@ -227,8 +228,10 @@ sub htmlified_system {
         $line = html_escape($line) . "<br />";
         print $line;
     }
+    print '</div>';
     close($fh);
     waitpid($pid, 0);
+
 
     return $? >> 8;
 }

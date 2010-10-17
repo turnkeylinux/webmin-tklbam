@@ -40,7 +40,7 @@ if(defined($in{'passphrase'})) {
 ui_print_header($error, "Set Passphrase", "", undef, 0, 0);
 
 print ui_form_start(undef, "post");
-print ui_table_start("Change Backup Passphrase", undef, 2);
+print ui_table_start(hlink("Change Backup Passphrase (?)", 'passphrase'), undef, 2);
 print ui_table_row("New passphrase:", 
                    ui_password("passphrase", undef, 20));
 print ui_table_row("New passphrase (again):",

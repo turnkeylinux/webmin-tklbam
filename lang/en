@@ -103,7 +103,7 @@ restore_incompatible=Are you sure you want to restore an incompatible backup?
 restore_incompatible_confirm=Confirm
 restore_incompatible_cancel=Cancel
 
-restore_restoring=Restoring Backup #$1 ...
+restore_restoring_title=Restoring Backup #$1 ...
 
 profile_title=View Backup Profile
 profile_subtitle=Filesystem backup profile ($1)

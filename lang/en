@@ -2,9 +2,8 @@ init_title=Initialization (Before we get started...)
 init_apikey=API KEY
 init_button=Continue
 init_apikey_title=Link to your TurnKey Hub account
-init_apikey_desc=Enter the API Key from your <b><a href='https://hub.turnkeylinux.org/'>TurnKey Hub</a></b> account's <b><a href='https://hub.turnkeylinux.org/profile/'>user profile</a></b> to link TKLBAM to the Hub: 
-init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM (TurnKey Linux Backup and Migration) is a smart backup/restore system that just works. No configuration required. It tracks changes to files, databases, and package management state. Restoring is fully automated so you can test backups easily, and migrate working servers anywhere in minutes.</p><p>Learn more: <b><a href="http://www.turnkeylinux.org/tklbam">http://www.turnkeylinux.org/tklbam</a></b></p>
-
+init_apikey_desc=Enter the API Key from your <a target='_blank' href='https://hub.turnkeylinux.org/'>TurnKey Hub</a> account's <a target='_blank' href='https://hub.turnkeylinux.org/profile/'>user profile</a> to link TKLBAM to the Hub: 
+init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM (TurnKey Linux Backup and Migration) is a smart backup/restore system that just works. No configuration required. It tracks changes to files, databases, and package management state. Restoring is fully automated so you can test backups easily, and migrate working servers anywhere in minutes.</p><p>Learn more: <b><a target='_blank' href="http://www.turnkeylinux.org/tklbam">http://www.turnkeylinux.org/tklbam</a></b></p>
 index_not_installed=tklbam package not installed
 index_backup=Backup
 index_restore=Restore

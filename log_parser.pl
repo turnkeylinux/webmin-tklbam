@@ -11,7 +11,7 @@ Converts logged information from this module into human-readable form
 sub parse_webmin_log
 {
     my ($user, $script, $action, $type, $object, $p) = @_;
-    my @noargs = qw(init passphrase escrow restore_rollback);
+    my @noargs = ('init', 'passphrase', 'escrow', 'restore_rollback');
     if(grep { $_ eq $action } (@noargs)) {
         return text("log_$action");
     } elsif($action eq 'save') {

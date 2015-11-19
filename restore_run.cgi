@@ -4,9 +4,11 @@ require 'tklbam-lib.pl';
 sub hidden_data {
     my ($in, @skip) = @_;
     my $buf;
-    foreach my $var qw(skpp id force passphrase
-                       time escrow escrow_filename
-                       skip_packages skip_files skip_database limits) {
+    foreach my $var ('skpp', 'id', 'force', 'passphrase',
+                     'time', 'escrow escrow_filename',
+                     'skip_packages', 'skip_files', 'skip_database',
+                     'limits') {
+                       
         next if grep { $_ eq $var } @skip;
         $buf .= ui_hidden($var, $in->{$var}) if defined $in->{$var};
     }

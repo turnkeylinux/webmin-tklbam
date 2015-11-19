@@ -1,7 +1,7 @@
 BEGIN { push(@INC, ".."); };
 
 use WebminCore;
-use POSIX qw(:termios_h);
+use POSIX (':termios_h');
 
 init_config();
 

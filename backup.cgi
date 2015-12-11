@@ -9,7 +9,7 @@ if (defined($in{'simulate'})) {
 }
 
 $command = "tklbam-backup";
-$command .= " --simulate" if $simulate;
+$command .= " --simulate --disable-resume" if $simulate;
 
 ui_print_unbuffered_header(undef, 
                            ($simulate ? "Running Backup Simulation..." : "Running Backup..."), 

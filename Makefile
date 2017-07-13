@@ -1,10 +1,12 @@
-BUILD = build
+NAME = tklbam
+TARGET = $(NAME).wbm.gz
 CONTENTS = *.cgi *.pl *.info config images lang help
 
-$(BUILD)/tklbam.wbm.gz: clean
-	mkdir -p $(BUILD)/tklbam/
-	cp -a $(CONTENTS) $(BUILD)/tklbam/
-	tar -C $(BUILD)/ -zcf $(BUILD)/tklbam.wbm.gz tklbam/
+$(TARGET): clean
+	find $(CONTENTS) -print0 | \
+		xargs -0r touch --no-dereference --date="@$${SOURCE_DATE_EPOCH:-$(shell date +%s)}"
+	find $(CONTENTS) -print0 | LC_ALL=C sort -z | \
+		GZIP=-9n tar --no-recursion --null --files-from=- -czf $(TARGET)
 
 clean:
-	rm -rf $(BUILD)
+	rm -rf $(TARGET)

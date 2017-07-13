@@ -15,5 +15,5 @@ Depends:
 Pre-Depends:
  perl,
 Description: Webmin module - TKLBAM (Backup and Migration)
-  Full Webmin interface to TKLBAM. Initialize, configure,
-  backup and restore.
+ Full Webmin interface to TKLBAM. Initialize, configure,
+ backup and restore.

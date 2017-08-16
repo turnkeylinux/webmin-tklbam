@@ -2,13 +2,17 @@ Source: webmin-tklbam
 Section: admin
 Priority: optional
 Maintainer: Liraz Siri <liraz@turnkeylinux.org>
-Build-Depends: debhelper (>> 4.2.0), tar, gzip
-Standards-Version: 3.6.1
+Build-Depends:
+ debhelper (>= 10),
+Standards-Version: 4.0.0
 
 Package: webmin-tklbam
 Architecture: any
-Depends: webmin
-Pre-Depends: perl
+Depends:
+ ${misc:Depends},
+ webmin,
+Pre-Depends:
+ perl,
 Description: Webmin module - TKLBAM (Backup and Migration)
-  Full Webmin interface to TKLBAM. Initialize, configure, 
-  backup and restore.
+ Full Webmin interface to TKLBAM. Initialize, configure,
+ backup and restore.

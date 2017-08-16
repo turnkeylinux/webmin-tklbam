@@ -1,32 +1,4 @@
 #! /usr/bin/make -f
 
-progname=$(shell awk '/^Source/ {print $$2}' debian/control)
-buildroot=debian/$(progname)
-webmin_modules_archive=$(buildroot)/usr/share/webmin/module-archives
-
-clean:
-	dh_clean
-
-build:
-	$(MAKE)
-
-install: build
-	dh_testdir
-	dh_testroot
-	dh_clean -k
-	mkdir -p $(webmin_modules_archive)
-	install -m 644 build/tklbam.wbm.gz $(webmin_modules_archive)
-
-binary-indep: install
-	dh_testdir
-	dh_testroot
-	dh_install
-	dh_installdeb
-	dh_gencontrol
-	dh_md5sums 
-	dh_builddeb
-
-binary-arch: install
-
-binary: binary-indep binary-arch
-.PHONY: clean binary-indep binary-arch binary install
+%:
+	dh $@

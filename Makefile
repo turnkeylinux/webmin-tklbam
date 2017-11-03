@@ -1,6 +1,6 @@
 NAME = tklbam
 TARGET = $(NAME).wbm.gz
-CONTENTS = *.cgi *.pl *.info config images lang help
+CONTENTS = tklbam
 
 $(TARGET): clean
 	find $(CONTENTS) -print0 | \

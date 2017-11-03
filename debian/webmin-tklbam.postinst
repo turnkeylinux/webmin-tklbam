@@ -2,6 +2,6 @@
 
 set -e
 
-(cd /usr/share/webmin && ./install-module.pl module-archives/tklbam.wbm.gz)
+(cd /usr/share/webmin && export PERL5LIB=/usr/share/webmin && ./install-module.pl module-archives/tklbam.wbm.gz)
 
 #DEBHELPER#

@@ -3,7 +3,7 @@ init_apikey=API KEY
 init_button=Continue
 init_apikey_title=Link to your TurnKey Hub account
 init_apikey_desc=Enter the API Key from your <a target='_blank' href='https://hub.turnkeylinux.org/'>TurnKey Hub</a> account's <a target='_blank' href='https://hub.turnkeylinux.org/profile/'>user profile</a> to link TKLBAM to the Hub: 
-init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM (TurnKey GNU/Linux Backup and Migration) is a smart backup/restore system that just works. No configuration required. It tracks changes to files, databases, and package management state. Restoring is fully automated so you can test backups easily, and migrate working servers anywhere in minutes.</p><p>Learn more: <b><a target='_blank' href="http://www.turnkeylinux.org/tklbam">http://www.turnkeylinux.org/tklbam</a></b></p>
+init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM (TurnKey GNU/Linux Backup and Migration) is a smart backup/restore system that just works. No configuration required. It tracks changes to files, databases, and package management state. Restoring is fully automated so you can test backups easily, and migrate working servers anywhere in minutes.</p><p>Learn more: <b><a target='_blank' href="https://www.turnkeylinux.org/tklbam">https://www.turnkeylinux.org/tklbam</a></b></p>
 index_not_installed=tklbam package not installed
 index_backup=Backup
 index_restore=Restore
@@ -14,8 +14,9 @@ index_online_docs=Online Documentation
 index_enable_daily=Enable Daily Backups: 
 index_enable_daily_desc=Automatic incremental daily backups. Implemented via cron job (/etc/cron.daily/tklbam-backup).
 index_runbackup=Run Backup
-index_runbackup_desc=Backup this system to encrypted cloud storage on Amazon S3.<br /><br />You can <em>Run a Local Simulation</em> to calculate in advance how much uncompressed data will be stored in a full backup, but in practice, compression and efficient incremental updates reduce the actual storage used.
-index_runbackup_simulate=Run a Local Simulation
+index_runbackup_desc=<br>Backup this system to encrypted cloud storage on Amazon S3.<br><br>
+index_runbackup_simulate=Run Simulation
+index_runbackup_simulate_desc=Run a Local Simulation - calculate how much uncompressed data will be in a full backup (note: compression and efficient incremental updates reduce the actual storage used).
 
 index_rollback=Rollback
 index_rollback_title=Rollback Last Restore

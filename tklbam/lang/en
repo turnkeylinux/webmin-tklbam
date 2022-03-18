@@ -16,7 +16,7 @@ index_enable_daily_desc=Automatic incremental daily backups. Implemented via cro
 index_runbackup=Run Backup
 index_runbackup_desc=<br>Backup this system to encrypted cloud storage on Amazon S3.<br><br>
 index_runbackup_simulate=Run Simulation
-index_runbackup_simulate_desc=Run a Local Simulation - calculate how much uncompressed data will be in a full backup (note: compression and efficient incremental updates reduce the actual storage used).
+index_runbackup_simulate_desc=Run a Local Simulation - calculate how much uncompressed data will be in a full backup<br>&nbsp;&nbsp;&nbsp;&nbsp;(note: compression and efficient incremental updates reduce the actual storage used).
 
 index_rollback=Rollback
 index_rollback_title=Rollback Last Restore

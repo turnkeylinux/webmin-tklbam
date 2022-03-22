@@ -8,21 +8,17 @@ our (%in);
 require 'tklbam-lib.pl';
 ReadParse();
 
-debug_log('running do_init');
-
 our $init_error = undef;
 
 validate_cli_args($in{'apikey'});
 
 if($in{'apikey'}) {
     eval {
-        debug_log('about to tklbam-init');
         tklbam_init($in{'apikey'});
         webmin_log('init');
         redirect('');
     };
     if ($@) {
-        debug_log("tklbam_init failed: $@");
         $init_error = $@;
     }
 }

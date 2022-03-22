@@ -16,15 +16,14 @@ use constant PATH_TKLBAM_OVERRIDES => "/etc/tklbam/overrides";
 use constant PATH_TKLBAM_PROFILE => "/var/lib/tklbam/profile/dirindex.conf";
 
 use constant PATH_TKLBAM_ROLLBACK => '/var/backups/tklbam-rollback';
+use constant PATH_TKLBAM_DEBUG => '/var/log/tklbam/webmin-debug.log';
 
 use constant DEFAULT_CACHE_LIST_TTL => 300;
 
-sub write_file_contents {
-    my ($path, $buf) = @_;
-    open(FH, ">" . $path)
-        or die "open: $!";
-    print FH $buf;
-    close FH;
+sub debug_log {
+    my $logmessage = shift;
+    open my $logfile, ">>", PATH_TKLBAM_DEBUG or die "Could not open PATH_TKLBAM_DEBUG: $!";
+    print $logfile "$logmessage\n";
 }
 
 sub is_installed {
@@ -67,6 +66,7 @@ sub tklbam_status {
 sub tklbam_init {
     my ($apikey) = @_;
     my $output = backquote_command("tklbam-init $apikey 2>&1");
+
     die $output if $? != 0;
 }
 
@@ -151,7 +151,7 @@ sub _conf_parse {
 sub _conf_update_option {
     my ($conf, $key, $val) = @_;
     $key =~ s/_/-/g;
-    unless($conf =~ s/^(\s*$key\s+).*/\1$val/gm) {
+    unless($conf =~ s/^(\s*$key\s+).*/$1$val/gm) {
         $conf .= "\n$key $val\n";
     }
     return $conf;
@@ -326,4 +326,3 @@ sub _ui_confirmation_form
 }
 
 1;
-

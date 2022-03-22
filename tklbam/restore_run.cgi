@@ -1,5 +1,11 @@
 #!/usr/bin/perl
+# restore_run.cgi
+# - run the actual restore process
+
+use strict;
+use warnings;
 require 'tklbam-lib.pl';
+our (%in);
 
 sub hidden_data {
     my ($in, @skip) = @_;
@@ -63,27 +69,27 @@ my $key = $in{'escrow'};
 
 validate_cli_args($id, $in{'time'}, $in{'limits'});
 
-if($skpp eq 'yes' and !$passphrase and !$key) {
+if ($skpp eq 'yes' and !$passphrase and !$key) {
     my $error;
     $error = text('restore_passphrase_empty') if defined $passphrase;
     ui_print_header($error, text('restore_passphrase_required'), '', undef, 0, 0);
     print_passphrase_form(\%in);
 }
 
-if($skpp eq 'no' or ($passphrase or $key)) {
+if ($skpp eq 'no' or ($passphrase or $key)) {
     ui_print_unbuffered_header(undef, text('restore_restoring_title', $id), "", undef, 0, 0);
 
     my $command = "tklbam-restore $id --noninteractive";
     my $keyfile;
 
-    if($in{'escrow'}) {
+    if ($in{'escrow'}) {
         umask(077);
         $keyfile = transname($in{'escrow_filename'});
         write_file_contents($keyfile, $in{'escrow'});
         $command .= " --keyfile=$keyfile";
     }
 
-    if($in{'limits'}) {
+    if ($in{'limits'}) {
         $limits = join(" ", split(/\s+/, $in{'limits'}));
         $command .= " --limits='$limits'";
     }
@@ -99,11 +105,11 @@ if($skpp eq 'no' or ($passphrase or $key)) {
     # execute command
     unlink($keyfile) if $keyfile;
 
-    if($error == 11) { # 11 is code for BADPASSPHRASE
+    if ($error == 11) { # 11 is code for BADPASSPHRASE
         # show passphrase dialog
         print_passphrase_form(\%in);
         
-    } elsif($error == 10) { # 10 is code for INCOMPATIBLE
+    } elsif ($error == 10) { # 10 is code for INCOMPATIBLE
         print_incompatible_force(\%in);
     } else {
 
@@ -115,4 +121,4 @@ if($skpp eq 'no' or ($passphrase or $key)) {
     }
 }
 
-ui_print_footer('/', $text{'index'});
+ui_print_footer('/', text'index'));

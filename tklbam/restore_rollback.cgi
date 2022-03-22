@@ -1,6 +1,11 @@
 #!/usr/bin/perl
-require 'tklbam-lib.pl';
+# restore_rollback.cgi
+# - rollback backup restore
 
+use strict;
+use warnings;
+require 'tklbam-lib.pl';
+our (%in);
 ReadParse();
 
 redirect('?mode=restore') if $in{'cancel'};
@@ -22,14 +27,14 @@ unless($in{'confirmed'}) {
 
 }
 
-$timestamp = rollback_timestamp();
-$command = "tklbam-restore-rollback --force";
+my $timestamp = rollback_timestamp();
+my $command = "tklbam-restore-rollback --force";
 ui_print_unbuffered_header(undef, text('rollback_title'), "", undef, 0, 0);
 $error = htmlified_system($command);
 if(!$error) {
     print text('rollback_summary', $timestamp) . '<br />';
 }
 print ui_form_start('index.cgi'), ui_hidden('mode', 'restore'), ui_submit('Back'), ui_form_end();
-ui_print_footer('/', $text{'index'});
+ui_print_footer('/', text('index'));
 
 webmin_log('restore_rollback');

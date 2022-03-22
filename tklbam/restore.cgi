@@ -1,16 +1,21 @@
 #!/usr/bin/perl
-require 'tklbam-lib.pl';
+# restore.cgi
+# - restore backup
 
+use strict;
+use warnings;
+require 'tklbam-lib.pl';
+our (%in);
 ReadParse();
 
-@vals = keys %in;
+my @vals = keys %in;
 die unless @vals;
 
 my ($op, $id, $skpp) = split(/:/, $vals[0], 3);
 
 validate_cli_args($id);
 
-if($op eq 'advanced') {
+if ($op eq 'advanced') {
     ui_print_header(undef, text('restore_title'), "", undef, 0, 0);
 
     $hbr = tklbam_list($id);
@@ -37,10 +42,10 @@ if($op eq 'advanced') {
     print ui_table_end();
 
     print ui_form_end([[undef, text('restore_run')]]);
-} elsif($op eq 'restore') {
+} elsif ($op eq 'restore') {
     redirect("restore_run.cgi?id=$id&skpp=$skpp");
 } else {
     error("Unsupported operation");
 }
 
-ui_print_footer('/', $text{'index'});
+ui_print_footer('/', text('index'));

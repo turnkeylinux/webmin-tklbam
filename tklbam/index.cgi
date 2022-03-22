@@ -1,27 +1,33 @@
 #!/usr/bin/perl
+# index.cgi
+# - main tklbam page
 
 use strict;
 use warnings;
 require './tklbam-lib.pl';
-our (%in, %text, %module_info);
-&ReadParse();
+our (%in, %module_info);
+ReadParse();
 
-error($text{'index_not_installed'}) unless (is_installed());
-redirect("init.cgi") unless is_initialized();
+error(text('index_not_installed')) unless (is_installed());
+redirect('init.cgi') unless is_initialized();
 
 ui_print_header(undef, $module_info{'desc'}, "", undef, 0, 1);
 
 # Show category icons
 my @links = ( "passphrase.cgi", "escrow.cgi",
-              "edit_conf.cgi", "https://www.turnkeylinux.org/tklbam" );
-my @titles = ( $text{'index_setpass'}, $text{'index_download_escrow'},
-               $text{'index_advanced_conf'}, $text{'index_online_docs'} );
+              "options.cgi", "overrides.cgi",
+              "https://www.turnkeylinux.org/tklbam" );
+my @titles = ( text('index_setpass'), text('index_download_escrow'),
+               text('index_options'), text('index_backup_overrides'),
+               text('index_online_docs') );
 my @icons = ( "images/passphrase.gif", "images/escrow.gif",
-              "images/conf.gif", "images/help.gif");
-&icons_table(\@links, \@titles, \@icons, 5);
+              "images/conf.gif", "images/conf.gif",
+              "images/help.gif");
+icons_table(\@links, \@titles, \@icons, 5);
 
 my @tabs = ( [ 'backup', text('index_backup') ],
              [ 'restore', text('index_restore') ] );
+
 print ui_tabs_start(\@tabs, 'mode', $in{'mode'} || 'backup');
 
 print ui_tabs_start_tab('mode', 'backup');
@@ -32,16 +38,16 @@ print ui_buttons_start();
 print ui_buttons_row('save_cron.cgi', text('index_enable_daily'), 
                      text('index_enable_daily_desc'),
                      undef,
-                     &ui_radio("enabled", get_cron_daily() ? "1" : "0",
-                        [ [ 1, $text{'yes'} ],
-                          [ 0, $text{'no'} ] ]));
+                     ui_radio("enabled", get_cron_daily() ? "1" : "0",
+                              [ [ 1, text('yes') ],
+                                [ 0, text('no') ] ]));
 
 print ui_buttons_row('backup.cgi', text('index_runbackup'), 
                      text('index_runbackup_desc'),
                      undef,
                      "");
 
-print ui_buttons_row('backup.cgi', text('index_runbackup_simulate'),
+print ui_buttons_row('backup.cgi?simulate=true', text('index_runbackup_simulate'),
                      text('index_runbackup_simulate_desc'),
                      undef,
                      "");
@@ -100,4 +106,4 @@ print ui_form_end();
 
 print ui_tabs_end_tab('mode', 'restore');
 
-ui_print_footer('/', $text{'index'});
+ui_print_footer('/', text('index'));

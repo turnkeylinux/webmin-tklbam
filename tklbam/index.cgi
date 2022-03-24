@@ -78,7 +78,7 @@ print ui_form_start('restore.cgi', 'post');
 printf "<div style='text-align: right; padding-right: 5px'><a href='list_refresh.cgi'>%s</a></div>", text('index_list_refresh');
 
 my @hbrs = tklbam_list();
-my @this_hbr = undef;
+my @this_hbr;
 my $backup_id = get_backup_id();
 if ($backup_id) {
     @this_hbr = tklbam_list($backup_id);

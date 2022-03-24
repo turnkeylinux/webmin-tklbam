@@ -26,6 +26,28 @@ sub debug_log {
     print $logfile "$logmessage\n";
 }
 
+sub show_backups {
+    my @hbrs = @_;
+    my $colalign = [undef, undef, undef, undef, undef, undef, 'align="center"'];
+    print ui_columns_start(
+        [ text('index_list_id'), hlink(text('index_list_passphrase'), 'passphrase'),
+          text('index_list_created'), text('index_list_updated'),
+          text('index_list_size'), text('index_list_label'),
+          text('index_list_action') ],
+        100, undef, $colalign);
+    foreach my $hbr (@hbrs) {
+        my $id = $hbr->[0];
+        my $skpp = lc $hbr->[1];
+        print ui_columns_row([@$hbr,
+                              ui_submit(text('index_list_action_restore'),
+                              join(':', 'restore', $id, $skpp)) .
+                              ui_submit(text('index_list_action_options'),
+                              join(':', 'advanced', $id, $skpp))
+                             ], $colalign);
+    }
+    print ui_columns_end();
+}
+
 sub is_installed {
     return has_command("tklbam");
 }

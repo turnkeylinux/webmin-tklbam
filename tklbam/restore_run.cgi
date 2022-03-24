@@ -90,7 +90,7 @@ if ($skpp eq 'no' or ($passphrase or $key)) {
     }
 
     if ($in{'limits'}) {
-        $limits = join(" ", split(/\s+/, $in{'limits'}));
+        my $limits = join(" ", split(/\s+/, $in{'limits'}));
         $command .= " --limits='$limits'";
     }
     $command .= " --time='$in{'time'}'" if $in{'time'};
@@ -121,4 +121,4 @@ if ($skpp eq 'no' or ($passphrase or $key)) {
     }
 }
 
-ui_print_footer('/', text'index'));
+ui_print_footer('/', text('index'));

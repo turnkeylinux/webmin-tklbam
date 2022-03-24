@@ -1,13 +1,20 @@
 #!/usr/bin/perl
+# escrow.cgi
+# - download escrow key
+
+#DO NOT use strict;
+use warnings;
 require 'tklbam-lib.pl';
 
 if ($ENV{'PATH_INFO'}) {
-    $temp = transname();
+    my $temp = transname();
     get_escrow($temp);
 
-    @st = stat($temp);
+    my @st = stat($temp);
+    my $filename = un_urlize($ENV{'PATH_INFO'});
+    $filename =~ s/\///;
 
-    print "Content-Disposition: Attachment\n";
+    print "Content-Disposition: attachment; filename=$filename\n";
     print "Content-type: application/octet-stream\n";
     print "Content-size: $st[7]\n\n";
 
@@ -20,13 +27,12 @@ if ($ENV{'PATH_INFO'}) {
 
     webmin_log('escrow');
 } else {
-    $hostname = get_system_hostname();
-    $backup_id = get_backup_id();
+    my $hostname = get_system_hostname();
+    my $backup_id = get_backup_id();
 
-    $filename="$hostname";
+    my $filename="$hostname";
     $filename = "$backup_id-$filename" if $backup_id;
     $filename .= ".secret";
 
-    redirect('escrow.cgi/' . urlize($filename))
+    redirect('escrow.cgi/' . urlize($filename));
 }
-

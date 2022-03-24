@@ -1,12 +1,18 @@
 #!/usr/bin/perl
+# passphrase.cgi
+# - set (or remove) passphrase
+
+use strict;
+use warnings;
 require 'tklbam-lib.pl';
+our (%in);
 ReadParse();
 
 my $error;
 
 redirect('') if $in{'cancel'};
 
-if(defined($in{'passphrase'})) {
+if (defined($in{'passphrase'})) {
     if($in{'passphrase'} ne $in{'passphrase_confirm'}) {
         $error = text('passphrase_errorconfirm');
     } else {
@@ -31,7 +37,7 @@ if(defined($in{'passphrase'})) {
                 
                 );
 
-            ui_print_footer('/', $text{'index'});
+            ui_print_footer('/', text('index'));
             exit;
         }
     }
@@ -50,5 +56,4 @@ print ui_table_end();
 print ui_form_end([['change', text('passphrase_change')],
                    ['cancel', text('passphrase_cancel')]]);
 
-ui_print_footer('/', $text{'index'});
-
+ui_print_footer('', text('index_return'));

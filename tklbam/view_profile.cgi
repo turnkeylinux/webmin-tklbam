@@ -14,6 +14,6 @@ ui_print_header(text('profile_subtitle', $profile_path), text('profile_title'), 
 my $data = read_file_contents($profile_path);
 
 print ui_textarea("data", $data, 20, 80, undef, 1);
-print ui_form_start('edit_conf.cgi'), ui_hidden('mode', 'overrides'), ui_submit("Back"), ui_form_end();
+print ui_form_start('overrides.cgi'), ui_hidden('mode', 'overrides'), ui_submit("Back"), ui_form_end();
 
-ui_print_footer('/', text('index'));
+ui_print_footer('', $text{'index_return'});

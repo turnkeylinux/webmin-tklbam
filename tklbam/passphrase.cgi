@@ -56,4 +56,4 @@ print ui_table_end();
 print ui_form_end([['change', text('passphrase_change')],
                    ['cancel', text('passphrase_cancel')]]);
 
-ui_print_footer('/', text('index'));
+ui_print_footer('', text('index_return'));

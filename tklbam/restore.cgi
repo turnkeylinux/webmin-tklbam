@@ -18,7 +18,7 @@ validate_cli_args($id);
 if ($op eq 'advanced') {
     ui_print_header(undef, text('restore_title'), "", undef, 0, 0);
 
-    $hbr = tklbam_list($id);
+    my $hbr = tklbam_list($id);
     my ($id, $skpp, $created, $updated, $size, $label) = @$hbr;
 
     print ui_form_start('restore_run.cgi', 'form-data');

@@ -78,32 +78,45 @@ print ui_form_start('restore.cgi', 'post');
 printf "<div style='text-align: right; padding-right: 5px'><a href='list_refresh.cgi'>%s</a></div>", text('index_list_refresh');
 
 my @hbrs = tklbam_list();
+my @this_hbr = undef;
+my $backup_id = get_backup_id();
+if ($backup_id) {
+    @this_hbr = tklbam_list($backup_id);
+}
 
 unless(@hbrs) {
     print '<b>'.text('index_list_nobackups').'</b>';
 } else {
-    print ui_columns_start( [text('index_list_id'), hlink(text('index_list_passphrase'), 'passphrase'), 
-                             text('index_list_created'), text('index_list_updated'), 
-                             text('index_list_size'), text('index_list_label'), 
-                             text('index_list_action') ], 100, undef, $colalign);
+    my @backup_list_tabs = ( [ 'this_server', text('index_list_local') ],
+                             # [ 'this_type', text('index_list_type') ],
+                             [ 'all_backups', text('index_list_all') ] );
 
-    foreach my $hbr (@hbrs) {
-        my $id = $hbr->[0];
-        my $skpp = lc $hbr->[1];
-        print ui_columns_row([@$hbr, 
-                                ui_submit(text('index_list_action_restore'),
-                                          join(':', 'restore', $id, $skpp)) .
-                                ui_submit(text('index_list_action_options'),
-                                          join(':', 'advanced', $id, $skpp))
-                                          ], $colalign);
+    print ui_tabs_start(\@backup_list_tabs, 'list_backups', 'this_server', 0);
+
+    print ui_tabs_start_tab('list_backups', 'this_server');
+    if ($backup_id) {
+        show_backups(@this_hbr);
+    } else {
+        print "<p>No backups for this server.</p>";
+        print "<p>Please either create a backup, or select 'All backups' tab (above) to display all Hub backups.<p>";
     }
+    print ui_tabs_end_tab('list_backups', 'this_server');
 
-    print ui_columns_end();
+    #print ui_tabs_start_tab('list_backups', 'this_type');
+    #print "<p>NOT IMPLEMENTED YET</p>";
+    #print ui_tabs_end_tab('list_backups', 'this_type');
+
+    print ui_tabs_start_tab('list_backups', 'all_backups');
+    show_backups(@hbrs);
+    print ui_tabs_end_tab('list_backups', 'all_backups');
+
+    print ui_tabs_end();
 }
 
 
 print ui_form_end();
 
 print ui_tabs_end_tab('mode', 'restore');
+print ui_tabs_end();
 
 ui_print_footer('/', text('index'));

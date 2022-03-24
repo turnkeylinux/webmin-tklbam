@@ -31,6 +31,11 @@ index_rollback_timestamp=System snapshot from $1
 index_list=Backup List
 index_list_refresh=Refresh
 index_list_nobackups=No backups have yet been created
+
+index_list_local=This server
+index_list_type=Backups that match this server
+index_list_all=All backups
+
 index_list_id=ID
 index_list_passphrase=SKPP (?)
 index_list_created=Created

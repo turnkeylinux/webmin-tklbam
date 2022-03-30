@@ -30,7 +30,7 @@ unless($in{'confirmed'}) {
 my $timestamp = rollback_timestamp();
 my $command = "tklbam-restore-rollback --force";
 ui_print_unbuffered_header(undef, text('rollback_title'), "", undef, 0, 0);
-$error = htmlified_system($command);
+my $error = htmlified_system($command);
 if(!$error) {
     print text('rollback_summary', $timestamp) . '<br />';
 }

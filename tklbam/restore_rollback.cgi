@@ -22,7 +22,7 @@ unless($in{'confirmed'}) {
         
         );
 
-    ui_print_footer('/', $text{'index'});
+    ui_print_footer('/', text('index'));
     exit;
 
 }

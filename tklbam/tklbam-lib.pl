@@ -2,6 +2,7 @@ BEGIN { push(@INC, ".."); };
 
 use WebminCore;
 use POSIX (':termios_h');
+use JSON::PP;
 
 init_config();
 
@@ -85,10 +86,22 @@ sub tklbam_status {
     return ($exitcode, $output)
 }
 
+sub hub_command {
+    my ($args) = @_;
+    my $output = backquote_command("/usr/bin/turnkey-hub $args --json 2>&1");
+    my $exitcode = $?;
+    my $result = eval { decode_json($output) };
+    die "Unable to contact the Hub connection service. Check that turnkey-hub is installed and try again.\n"
+        unless ref($result) eq 'HASH';
+    die (($result->{message} || "Hub connection failed. Please try again.") . "\n") if $exitcode;
+    return $result;
+}
+
 sub tklbam_init {
     my ($apikey) = @_;
-    my $output = backquote_command("tklbam-init $apikey 2>&1");
-
+    my $command = "tklbam-init";
+    $command .= " $apikey" if defined $apikey;
+    my $output = backquote_command("$command 2>&1");
     die $output if $? != 0;
 }
 

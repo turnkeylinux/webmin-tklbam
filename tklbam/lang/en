@@ -1,12 +1,24 @@
-init_title=Initialization (Before we get started...)
-init_apikey=API KEY
-init_button=Continue
-init_apikey_title=Link to your TurnKey Hub account
-init_apikey_desc=Enter the API Key from your <a target='_blank' href='https://hub.turnkeylinux.org/'>TurnKey Hub</a> account's <a target='_blank' href='https://hub.turnkeylinux.org/profile/'>user profile</a> (click 'Show' to display) to link TKLBAM to the Hub:
-init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM (TurnKey GNU/Linux Backup and Migration) is a smart backup/restore system that just works. No configuration required. It tracks changes to files, databases, and package management state. Restoring is fully automated so you can test backups easily, and migrate working servers anywhere in minutes.</p><p>(Note: TKLBAM stores your encrypted and compressed backup in AWS S3 storage, the AWS account linkage and permissions are configured within our "value-add" <a target='_blank' href='https://hub.turnkeylinux.org/'>TurnKey Hub</a> SaaS platform).</p><p>Learn more:<br><ul><li><b><a target='_blank' href="https://www.turnkeylinux.org/tklbam">https://www.turnkeylinux.org/tklbam</a></b></li><li><b><a target='_blank' href="https://hub.turnkeylinux.org/tour/backup/">https://hub.turnkeylinux.org/tour/backup/</a></b></li></ul></p>
-init_error_title=Initialization encountered an error:
-init_error_button=Continue
-init_error_button_msg=Continue or retry as relevant. If your API key was invalid, check that it doesn't include any whitespace characters (space, tab or newlines).
+init_title=Set up backups
+init_setup_title=Set up TKLBAM backups
+init_connect_title=Connect this server to the Hub
+init_connect_desc=Connect this server to your TurnKey Hub account to set up backups. You will approve the connection in the Hub, then return here.
+init_legacy_desc=Enter the API key from your <a href="https://hub.turnkeylinux.org/profile/" target="_blank" rel="noopener noreferrer">Hub account profile</a>.
+init_legacy_key=API key
+init_connect_button=Connect to the Hub
+init_approve_desc=Open the Hub, sign in or create an account, and enter this connection code:
+init_approve_link=<a href="https://hub.turnkeylinux.org/link" target="_blank" rel="noopener noreferrer">Open TurnKey Hub in a new tab</a>. After approving the connection, return here and select Check connection.
+init_check_button=Check connection
+init_pending=The connection is still waiting for approval. Approve it in the Hub, then check again.
+init_expired=The connection was denied or expired. Return to setup to start again.
+init_back=Return to backup setup
+init_setup_desc=This server is connected to the Hub. <a href="https://hub.turnkeylinux.org/backups/new/" target="_blank" rel="noopener noreferrer">Open backup setup in the Hub</a> to connect your AWS account and finish setup if needed. Then return here and select Initialize backups.
+init_button=Initialize backups
+init_error_title=Backup initialization could not finish
+init_error_button=Return to backup setup
+init_error_button_msg=Follow the instructions above, then return to backup setup and try again.
+init_unknown_error=Something went wrong. Return to backup setup and try again.
+init_retry_page=Refresh this page to try again.
+init_about_tklbam=<h3>About TKLBAM</h3><p>TKLBAM backs up changes to files, databases and installed packages. Backups are encrypted and stored in your AWS account. You can restore them or migrate your server.</p><p><a href="https://www.turnkeylinux.org/tklbam" target="_blank" rel="noopener noreferrer">Learn more about TKLBAM</a></p>
 
 index_not_installed=tklbam package not installed
 index_backup=Backup

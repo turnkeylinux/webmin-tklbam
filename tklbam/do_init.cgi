@@ -1,35 +1,27 @@
 #!/usr/bin/perl
-# do_init.cgi
-# - save the initization data
-
 use strict;
 use warnings;
 our (%in);
 require 'tklbam-lib.pl';
 ReadParse();
-
-our $init_error = undef;
-
-validate_cli_args($in{'apikey'});
-
-if($in{'apikey'}) {
-    eval {
+my $failure;
+eval {
+    if (!has_command('turnkey-hub')) {
+        die "Enter your Hub API key.\n" unless ($in{'apikey'} || '') =~ /^[A-Z2-7]+$/;
         tklbam_init($in{'apikey'});
-        webmin_log('init');
-        redirect('');
-    };
-    if ($@) {
-        $init_error = $@;
+    } else {
+        tklbam_init();
     }
-}
-
+    webmin_log('init');
+    redirect('');
+};
+$failure = $@ if $@;
+$failure =~ s/Then run tklbam-backup again\./Then return here and select Initialize backups./g if $failure;
 ui_print_header(undef, text('init_title'), "", undef, 0, 1);
-
-print ui_subheading(&text('init_error_title'));
-print "<b><pre>$init_error</pre></b>";
-print ui_buttons_start();
-print ui_buttons_row('init.cgi', text('init_error_button'),
-                     text('init_error_button_msg'));
-print ui_buttons_end();
-
+print ui_subheading(text('init_error_title'));
+print '<pre style="white-space: pre-wrap">' . html_escape($failure || text('init_unknown_error')) . '</pre>';
+print '<p>' . text('init_error_button_msg') . '</p>';
+print ui_form_start('init.cgi', 'get');
+print ui_submit(text('init_error_button'));
+print ui_form_end();
 ui_print_footer('/', text('index'));

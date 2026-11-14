@@ -8,10 +8,12 @@ require 'tklbam-lib.pl';
 our (%in);
 ReadParse();
 
-my @vals = keys %in;
-die unless @vals;
+my @actions = grep { /\A(?:restore|advanced)(?::|\z)/ } keys %in;
+error("Unsupported operation") unless @actions == 1;
 
-my ($op, $id, $skpp) = split(/:/, $vals[0], 3);
+my ($op, $id, $skpp) = $actions[0] =~ /\A(restore|advanced):([0-9]+):(yes|no)\z/;
+error("Unsupported operation")
+    unless defined($op) && index($in{$actions[0]}, "\0") == -1;
 
 validate_cli_args($id);
 

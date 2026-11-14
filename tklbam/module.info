@@ -2,4 +2,4 @@ name=tklbam
 desc=Backup and Migration (TKLBAM)
 longdesc=TKLBAM is a custom pre-installed TurnKey Linux automated encrypted remote backup tool.
 category=system
-version=1.2.3
+version=1.2.4

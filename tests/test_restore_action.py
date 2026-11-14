@@ -28,7 +28,7 @@ class RestoreActionTests(unittest.TestCase):
         cls.bin = cls.fixture / 'bin'
         cls.bin.mkdir()
         listing = cls.bin / 'tklbam-list'
-        listing.write_text('#!/bin/sh\nprintf "%s\\n" "# local fixture" "3 No created updated 1MB Fixture-three" "17 Yes created updated 2MB Fixture-seventeen"\n')
+        listing.write_text('#!/bin/sh\nprintf "%s\\n" "# local fixture" "3 No created updated 1MB Fixture-three" "4 No created updated 1MB Fixture-four" "17 Yes created updated 2MB Fixture-seventeen"\n')
         listing.chmod(0o755)
         engine = cls.bin / 'tklbam-restore'
         engine.write_text('#!/bin/sh\nprintf "%s\\n" "$*" >> "$RESTORE_ENGINE_CALLS"\necho "Synthetic restore completed"\n')
@@ -119,8 +119,7 @@ class RestoreActionTests(unittest.TestCase):
             cases.append([(key, 'Restore'), ('list_backups', 'this_server')])
         cases += [[('restore:3:no', 'Restore'), ('advanced:3:no', 'Options')],
                   [('restore:3:no', 'Restore'), ('restore:17:yes', 'Restore')],
-                  [('restore:3:no', 'Restore'), ('restore:bad:no', 'Restore')],
-                  [('restore:3:no', 'Restore'), ('restore:3:no', 'Restore')]]
+                  [('restore:3:no', 'Restore'), ('restore:bad:no', 'Restore')]]
         self.engine_calls.unlink(missing_ok=True)
         for fields in cases:
             for seed in range(2):
@@ -130,6 +129,23 @@ class RestoreActionTests(unittest.TestCase):
                     self.assertNotIn('Location: /tklbam/restore_run.cgi', output)
                     self.assertNotRegex(output, r'<form[^>]+action=[\'"]restore_run.cgi[\'"]')
                     self.assertFalse(self.engine_calls.exists())
+
+    def test_repeated_button_fields_select_one_action_across_hash_and_field_orders(self):
+        for seed in range(4):
+            for operation in ('restore', 'advanced'):
+                for flag in ('yes', 'no'):
+                    for reverse in (False, True):
+                        with self.subTest(seed=seed, operation=operation, flag=flag, reverse=reverse):
+                            key = f'{operation}:4:{flag}'
+                            label = 'Restore' if operation == 'restore' else 'Advanced Options'
+                            fields = [('list_backups', 'this_server'), (key, label), (key, label)]
+                            output = self.request(list(reversed(fields)) if reverse else fields, seed)
+                            if operation == 'restore':
+                                self.assertIn(f'Location: /tklbam/restore_run.cgi?id=4&skpp={flag}', output)
+                            else:
+                                self.assertRegex(output, r'<form[^>]+action=[\'"]restore_run.cgi[\'"]')
+                                self.assertRegex(output, r'name=[\'"]id[\'"][^>]*value=[\'"]4[\'"]')
+                                self.assertRegex(output, r'name=[\'"]skpp[\'"][^>]*value=[\'"]no[\'"]')
 
     def test_direct_redirect_reaches_existing_restore_runner(self):
         self.engine_calls.unlink(missing_ok=True)

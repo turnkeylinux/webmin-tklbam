@@ -12,8 +12,7 @@ my @actions = grep { /\A(?:restore|advanced)(?::|\z)/ } keys %in;
 error("Unsupported operation") unless @actions == 1;
 
 my ($op, $id, $skpp) = $actions[0] =~ /\A(restore|advanced):([0-9]+):(yes|no)\z/;
-error("Unsupported operation")
-    unless defined($op) && index($in{$actions[0]}, "\0") == -1;
+error("Unsupported operation") unless defined($op);
 
 validate_cli_args($id);
 

@@ -24,13 +24,10 @@ if ($failure) {
 } elsif ($action eq 'start') {
     $code = $result->{user_code} || '';
     $code = '' unless $code =~ /^[A-Z0-9]{4}-[A-Z0-9]{4}$/;
-    print '<p>' . text('init_approve_desc') . '</p>';
-    print '<p><strong>' . $code . '</strong></p>';
-    print '<p>' . text('init_approve_link', $code ? '?code=' . $code : '') . '</p>';
+    print_approval($code);
 } elsif (($result->{status} || '') eq 'pending') {
     print '<p>' . text('init_pending') . '</p>';
-    print '<p><strong>' . html_escape($code) . '</strong></p>' if $code;
-    print '<p>' . text('init_approve_link', $code ? '?code=' . $code : '') . '</p>';
+    print_approval($code);
 } else {
     print '<p>' . text('init_expired') . '</p>';
 }
@@ -43,3 +40,14 @@ if (!$failure && ($action eq 'start' || ($result->{status} || '') eq 'pending'))
 }
 print '<p><a href="init.cgi">' . text('init_back') . '</a></p>';
 ui_print_footer('/', text('index'));
+
+sub print_approval {
+    my ($code) = @_;
+    print '<p>' . text('init_approve_link', $code ? '?code=' . $code : '') . '</p>';
+    print '<p>' . text('init_return_instruction') . '</p>';
+    if ($code) {
+        print '<details><summary>' . text('init_other_device') . '</summary>';
+        print '<p>' . text('init_other_device_instruction') . '</p>';
+        print '<p><strong>https://hub.turnkeylinux.org/connect</strong><br>' . text('init_code') . ' <strong>' . html_escape($code) . '</strong></p></details>';
+    }
+}

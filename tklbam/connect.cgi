@@ -45,11 +45,12 @@ sub print_approval {
     my ($code) = @_;
     print '<p>' . text('init_profile_reason') . '</p>';
     print '<p>' . text('init_approve_link', $code ? '?code=' . $code : '') . '</p>';
+    print '<p>' . text('init_code') . ' <strong>' . html_escape($code) . '</strong></p>' if $code;
     print '<p>' . text('init_return_instruction') . '</p>';
     if ($code) {
         print '<style>details[open] .hub-disclosure-arrow { transform: rotate(90deg); }</style>';
         print '<details style="margin-bottom: 1em"><summary style="cursor: pointer"><span class="hub-disclosure-arrow" style="display: inline-block; margin-right: .4em" aria-hidden="true">&#9654;</span>' . text('init_other_device') . '</summary>';
         print '<p>' . text('init_other_device_instruction') . '</p>';
-        print '<p><strong>https://hub.turnkeylinux.org/connect</strong><br>' . text('init_code') . ' <strong>' . html_escape($code) . '</strong></p></details>';
+        print '<p><strong>https://hub.turnkeylinux.org/connect</strong></p></details>';
     }
 }

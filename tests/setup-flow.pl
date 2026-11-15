@@ -48,6 +48,7 @@ like(page('init.cgi', RESULT => '{"connection_status":"disconnected"}'), qr/BUTT
 like(page('init.cgi', RESULT => '{"connection_status":"linked"}'), qr/BUTTON:init_button/, 'linked server can initialize');
 like(page('init.cgi', LEGACY => 1), qr/init_legacy_key.*INPUT/, 'older installation retains legacy form');
 like(page('connect.cgi', ACTION => 'start', RESULT => '{"user_code":"ABCD-EFGH"}'), qr{https://hub\.turnkeylinux\.org/connect\?code=ABCD-EFGH.*BUTTON:init_check_button}, 'approval link contains code');
+like(page('connect.cgi', ACTION => 'start', RESULT => '{"user_code":"ABCD-EFGH"}'), qr{init_code\s*<strong>ABCD-EFGH</strong>.*<details}s, 'connection code is visible before other-device disclosure');
 like(page('connect.cgi', ACTION => 'poll', CODE => 'ABCD-EFGH', RESULT => '{"status":"pending"}'), qr{init_pending.*https://hub\.turnkeylinux\.org/connect\?code=ABCD-EFGH.*ABCD-EFGH.*BUTTON:init_check_button}, 'pending approval can be checked again');
 like(page('connect.cgi', ACTION => 'poll', RESULT => '{"connection_status":"linked"}'), qr/REDIRECT:init.cgi/, 'approval returns to setup');
 like(page('connect.cgi', ACTION => 'poll', RESULT => '{"status":"expired"}'), qr/init_expired.*init_back/, 'expired connection can be restarted');

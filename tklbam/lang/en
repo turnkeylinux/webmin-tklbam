@@ -6,10 +6,10 @@ init_legacy_desc=Enter the API key from your <a href="https://hub.turnkeylinux.o
 init_legacy_key=API key
 init_connect_button=Connect to the Hub
 init_other_device=Sign in to the Hub from another device
-init_other_device_instruction=Open this address and enter the code:
-init_code=Code:
+init_other_device_instruction=Open this address and enter the connection code shown above:
+init_code=Connection code:
 init_approve_link=<a class="btn btn-primary" href="https://hub.turnkeylinux.org/connect$1" target="_blank" rel="noopener noreferrer">Connect Server</a>
-init_return_instruction=Sign in and approve the connection in the new tab. Then return here and select Check Connection.
+init_return_instruction=Sign in, check that the code matches, and approve the connection. Then return here and select Check Connection.
 init_profile_reason=Connect to automatically configure backups for this app.
 init_check_button=Check Connection
 init_pending=The connection is still waiting for approval. Approve it in the Hub, then check again.

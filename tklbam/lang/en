@@ -1,7 +1,7 @@
 init_title=Set up backups
 init_setup_title=Set up TKLBAM backups
 init_connect_title=Connect this server to TurnKey Hub
-init_connect_desc=Connect this server to your TurnKey Hub account to set up backups. You will approve the connection in the Hub, then return here.
+init_connect_desc=Connect this server to automatically configure backups for this app. Approve the connection in the new Hub tab, then return here.
 init_legacy_desc=Enter the API key from your <a href="https://hub.turnkeylinux.org/profile/" target="_blank" rel="noopener noreferrer">Hub account profile</a>.
 init_legacy_key=API key
 init_connect_button=Connect to the Hub

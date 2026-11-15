@@ -30,7 +30,7 @@ if ($failure) {
     print ui_hidden('action', 'start');
     print '<button type="submit" class="btn btn-primary">' . text('init_connect_button') . '</button>';
     print ui_form_end();
-    print '<p id="hub-connect-message" role="status" aria-live="polite"></p>';
+    print '<p id="hub-connect-message" role="status" aria-live="polite" style="margin-top: .75em"></p>';
     print <<'SCRIPT';
 <script>
 (function () {

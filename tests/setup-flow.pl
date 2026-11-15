@@ -18,7 +18,12 @@ sub hub_command { die "<network error>\n" if $ENV{FAIL}; return decode_json($ENV
 sub tklbam_init { die "<setup error>\n" if $ENV{FAIL}; print "INITIALIZED:@_\n" }
 sub redirect { print "REDIRECT:@_\n"; exit }
 sub webmin_log { }
-sub text { return $_[0] }
+sub text {
+    return $_[0] unless $_[0] eq 'init_approve_link';
+    open my $lang, '<', $ENV{SOURCE_LANG} or die $!;
+    while (<$lang>) { if (/^init_approve_link=(.*)$/) { my $value = $1; my $arg = $_[1] || ''; $value =~ s/\$1/$arg/g; return $value; } }
+    die 'missing link message';
+}
 sub html_escape { my $s = shift; $s =~ s/&/&amp;/g; $s =~ s/</&lt;/g; $s =~ s/>/&gt;/g; return $s }
 sub ui_print_header { }
 sub ui_print_footer { }
@@ -33,7 +38,7 @@ STUB
 close $stub;
 sub page {
     my ($script, %env) = @_;
-    local %ENV = (%ENV, RESULT => '{}', ACTION => '', LEGACY => '', FAIL => '', APIKEY => '', CODE => '', %env);
+    local %ENV = (%ENV, SOURCE_LANG => "$source/lang/en", RESULT => '{}', ACTION => '', LEGACY => '', FAIL => '', APIKEY => '', CODE => '', %env);
     open my $run, '-|', $^X, "-I$dir", "$dir/$script" or die $!;
     local $/; my $out = <$run>;
     close $run or die "CGI failed: $script";
@@ -42,8 +47,8 @@ sub page {
 like(page('init.cgi', RESULT => '{"connection_status":"disconnected"}'), qr/BUTTON:init_connect_button/, 'disconnected server can start connecting');
 like(page('init.cgi', RESULT => '{"connection_status":"linked"}'), qr/BUTTON:init_button/, 'linked server can initialize');
 like(page('init.cgi', LEGACY => 1), qr/init_legacy_key.*INPUT/, 'older installation retains legacy form');
-like(page('connect.cgi', ACTION => 'start', RESULT => '{"user_code":"ABCD-EFGH"}'), qr/ABCD-EFGH.*BUTTON:init_check_button/, 'approval code and check action shown');
-like(page('connect.cgi', ACTION => 'poll', CODE => 'ABCD-EFGH', RESULT => '{"status":"pending"}'), qr/init_pending.*ABCD-EFGH.*BUTTON:init_check_button/, 'pending approval can be checked again');
+like(page('connect.cgi', ACTION => 'start', RESULT => '{"user_code":"ABCD-EFGH"}'), qr{https://hub\.turnkeylinux\.org/connect\?code=ABCD-EFGH.*BUTTON:init_check_button}, 'approval link contains code');
+like(page('connect.cgi', ACTION => 'poll', CODE => 'ABCD-EFGH', RESULT => '{"status":"pending"}'), qr{init_pending.*ABCD-EFGH.*https://hub\.turnkeylinux\.org/connect\?code=ABCD-EFGH.*BUTTON:init_check_button}, 'pending approval can be checked again');
 like(page('connect.cgi', ACTION => 'poll', RESULT => '{"connection_status":"linked"}'), qr/REDIRECT:init.cgi/, 'approval returns to setup');
 like(page('connect.cgi', ACTION => 'poll', RESULT => '{"status":"expired"}'), qr/init_expired.*init_back/, 'expired connection can be restarted');
 like(page('do_init.cgi', FAIL => 1), qr/&lt;setup error&gt;.*init_error_button/s, 'initialization errors are escaped and recoverable');

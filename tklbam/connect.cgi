@@ -26,11 +26,11 @@ if ($failure) {
     $code = '' unless $code =~ /^[A-Z0-9]{4}-[A-Z0-9]{4}$/;
     print '<p>' . text('init_approve_desc') . '</p>';
     print '<p><strong>' . $code . '</strong></p>';
-    print '<p>' . text('init_approve_link') . '</p>';
+    print '<p>' . text('init_approve_link', $code ? '?code=' . $code : '') . '</p>';
 } elsif (($result->{status} || '') eq 'pending') {
     print '<p>' . text('init_pending') . '</p>';
     print '<p><strong>' . html_escape($code) . '</strong></p>' if $code;
-    print '<p>' . text('init_approve_link') . '</p>';
+    print '<p>' . text('init_approve_link', $code ? '?code=' . $code : '') . '</p>';
 } else {
     print '<p>' . text('init_expired') . '</p>';
 }

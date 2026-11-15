@@ -39,6 +39,7 @@ if ($failure) {
     var working = false;
     form.addEventListener('submit', function (event) {
         event.preventDefault();
+        event.stopImmediatePropagation();
         if (working) return;
         var tab = window.open('', '_blank');
         if (!tab) {
@@ -68,7 +69,7 @@ if ($failure) {
                 form.querySelectorAll('button, input[type=submit]').forEach(function (button) { button.disabled = false; button.classList.remove('disabled'); });
                 message.textContent = 'Could not prepare the connection. Check your network and try again.';
             });
-    });
+    }, true);
 }());
 </script>
 SCRIPT

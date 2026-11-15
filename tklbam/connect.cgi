@@ -43,6 +43,7 @@ ui_print_footer('/', text('index'));
 
 sub print_approval {
     my ($code) = @_;
+    print '<p>' . text('init_profile_reason') . '</p>';
     print '<p>' . text('init_approve_link', $code ? '?code=' . $code : '') . '</p>';
     print '<p>' . text('init_return_instruction') . '</p>';
     if ($code) {

@@ -5,12 +5,12 @@ init_connect_desc=Connect this server to your TurnKey Hub account to set up back
 init_legacy_desc=Enter the API key from your <a href="https://hub.turnkeylinux.org/profile/" target="_blank" rel="noopener noreferrer">Hub account profile</a>.
 init_legacy_key=API key
 init_connect_button=Connect to the Hub
-init_other_device=Use another device
+init_other_device=Instructions for another device ▾
 init_other_device_instruction=Open this address and enter the code:
 init_code=Code:
 init_approve_link=<a class="btn btn-primary" href="https://hub.turnkeylinux.org/connect$1" target="_blank" rel="noopener noreferrer">Connect Server</a>
 init_return_instruction=Sign in and approve the connection in the new tab. Then return here and select Check Connection.
-init_profile_reason=Connecting lets TKLBAM download the app’s default backup profile during backup setup.
+init_profile_reason=Connect to automatically configure backups for this app.
 init_check_button=Check Connection
 init_pending=The connection is still waiting for approval. Approve it in the Hub, then check again.
 init_expired=The connection was denied or expired. Return to setup to start again.

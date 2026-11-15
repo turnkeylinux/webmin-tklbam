@@ -11,6 +11,8 @@ $code = '' unless $code =~ /^[A-Z0-9]{4}-[A-Z0-9]{4}$/;
 if ($action eq 'start' || $action eq 'poll') {
     eval { $result = hub_command('connect --' . $action); };
     $failure = $@ if $@;
+} elsif ($action eq 'display' && $code) {
+    $result = {};
 } else {
     $failure = text('init_unknown_error');
 }
@@ -21,8 +23,8 @@ ui_print_header(undef, text('init_title'), "", undef, 0, 1);
 print ui_subheading(text('init_connect_title'));
 if ($failure) {
     print '<p>' . html_escape($failure) . '</p>';
-} elsif ($action eq 'start') {
-    $code = $result->{user_code} || '';
+} elsif ($action eq 'start' || $action eq 'display') {
+    $code = $result->{user_code} || '' if $action eq 'start';
     $code = '' unless $code =~ /^[A-Z0-9]{4}-[A-Z0-9]{4}$/;
     print_approval($code);
 } elsif (($result->{status} || '') eq 'pending') {
@@ -31,7 +33,7 @@ if ($failure) {
 } else {
     print '<p>' . text('init_expired') . '</p>';
 }
-if (!$failure && ($action eq 'start' || ($result->{status} || '') eq 'pending')) {
+if (!$failure && ($action eq 'start' || $action eq 'display' || ($result->{status} || '') eq 'pending')) {
     print ui_form_start('connect.cgi', 'post');
     print ui_hidden('action', 'poll');
     print ui_hidden('code', $code) if $code;

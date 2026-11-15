@@ -8,7 +8,7 @@ init_connect_button=Connect to the Hub
 init_other_device=Sign in to the Hub from another device
 init_other_device_instruction=Open this address and enter the connection code shown above:
 init_code=Connection code:
-init_approve_link=<a class="btn btn-primary" href="https://hub.turnkeylinux.org/connect$1" target="_blank" rel="noopener noreferrer">Connect Server</a>
+init_approve_link=<a class="btn btn-primary hub-connect-target" href="https://hub.turnkeylinux.org/connect$1" target="_blank" rel="noopener noreferrer">Connect Server</a>
 init_return_instruction=Sign in, check that the code matches, and approve the connection. Then return here and select Check Connection.
 init_profile_reason=Connect to automatically configure backups for this app.
 init_check_button=Check Connection

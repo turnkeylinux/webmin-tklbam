@@ -4,7 +4,7 @@ init_connect_title=Connect this server to TurnKey Hub
 init_connect_desc=Connect this server to automatically configure backups for this app. Approve the connection in the new Hub tab, then return here.
 init_legacy_desc=Enter the API key from your <a href="https://hub.turnkeylinux.org/profile/" target="_blank" rel="noopener noreferrer">Hub account profile</a>.
 init_legacy_key=API key
-init_connect_button=Connect to the Hub
+init_connect_button=Connect Server
 init_other_device=Sign in to the Hub from another device
 init_other_device_instruction=Open this address and enter the connection code shown above:
 init_code=Connection code:
